@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: lifeos-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${LIFEOS_MYSQL_DATABASE:-lifeos}
+      MYSQL_USER: ${LIFEOS_MYSQL_USER:-lifeos}
+      MYSQL_PASSWORD: ${LIFEOS_MYSQL_PASSWORD:-change-me}
+      MYSQL_ROOT_PASSWORD: ${LIFEOS_MYSQL_ROOT_PASSWORD:-change-root-me}
+      TZ: UTC
+    ports:
+      - "${LIFEOS_MYSQL_PORT:-3306}:3306"
+    volumes:
+      - lifeos-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${LIFEOS_MYSQL_ROOT_PASSWORD:-change-root-me}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  lifeos-mysql-data:

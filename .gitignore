@@ -1,0 +1,33 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+**/application-secrets.yml
+**/application-local-override.yml
+
+# Editors and OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local tools and runtime data
+.tools/
+logs/
+*.log
+*.db
+*.db-shm
+*.db-wal
+uploads/
+
+# Java / Maven
+server/target/
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+mobile/coverage/
