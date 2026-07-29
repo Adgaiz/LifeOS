@@ -1,7 +1,34 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-final class FoundationPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lifeos/core/ui/design_tokens.dart';
+
+final class FoundationPage extends StatefulWidget {
   const FoundationPage({super.key});
+
+  @override
+  State<FoundationPage> createState() => _FoundationPageState();
+}
+
+final class _FoundationPageState extends State<FoundationPage> {
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer(LifeOsDurations.splash, () {
+      if (mounted) {
+        context.go('/today');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

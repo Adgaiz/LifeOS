@@ -5,7 +5,7 @@ import 'package:lifeos/app/app.dart';
 void main() {
   testWidgets('shows the LifeOS foundation message', (tester) async {
     await tester.pumpWidget(const ProviderScope(child: LifeOsApp()));
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     expect(find.text('你要怎样度过这一生？'), findsOneWidget);
     expect(find.text('LifeOS'), findsOneWidget);

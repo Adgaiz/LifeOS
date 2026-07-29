@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lifeos/core/ui/design_tokens.dart';
 
 abstract final class LifeOsTheme {
   static const _warmGreen = Color(0xFF607466);
@@ -23,14 +24,16 @@ abstract final class LifeOsTheme {
         filled: true,
         fillColor: colorScheme.surfaceContainerLowest,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(LifeOsRadii.control),
           borderSide: BorderSide.none,
         ),
       ),
       cardTheme: CardThemeData(
         elevation: 0,
         color: colorScheme.surfaceContainerLow,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(LifeOsRadii.card),
+        ),
       ),
     );
   }
