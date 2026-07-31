@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lifeos/app/navigation/lifeos_scaffold.dart';
 import 'package:lifeos/core/ui/design_tokens.dart';
 import 'package:lifeos/features/action/presentation/action_section.dart';
 import 'package:lifeos/features/daily/application/daily_providers.dart';
@@ -16,7 +17,8 @@ final class DailyHomePage extends ConsumerWidget {
     final timezone = ref.watch(currentTimeZoneProvider);
     final record = ref.watch(todayRecordProvider);
 
-    return Scaffold(
+    return LifeOsScaffold(
+      selectedIndex: 0,
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {

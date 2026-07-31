@@ -6,7 +6,7 @@ LifeOS 是一个离线优先的个人 AI 成长管理系统。它不监督用户
 
 ## 当前阶段
 
-项目已进入 **Stage 1：本地每日闭环**。移动端已提供 Daily 状态记录、Daily Action、最低行动和离线 SQLite 首页体验；Vision、Goal、Diary 与 AI Companion 将按后续阶段实现。
+项目已进入 **Stage 2：方向与记录**。移动端已提供 Daily 本地每日闭环与 Vision 人生愿景；90 天 Goal、Diary 与 AI Companion 将按后续模块逐步实现。
 
 ## 技术基线
 
