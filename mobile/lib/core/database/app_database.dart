@@ -172,6 +172,93 @@ class GoalKeyResults extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
+@DataClassName('DiaryEntryRow')
+class DiaryEntries extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get localDate => text().withLength(min: 10, max: 10)();
+
+  TextColumn get markdown => text().withLength(min: 1, max: 50000)();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get updatedAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+@DataClassName('DiaryTagRow')
+class DiaryTags extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get diaryId => text().references(DiaryEntries, #id)();
+
+  TextColumn get name => text().withLength(min: 1, max: 20)();
+
+  TextColumn get normalizedName => text().withLength(min: 1, max: 20)();
+
+  IntColumn get position => integer().withDefault(const Constant(0))();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get updatedAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
+@DataClassName('DiaryAttachmentRow')
+class DiaryAttachments extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get diaryId => text().references(DiaryEntries, #id)();
+
+  TextColumn get relativePath => text().withLength(min: 1, max: 500)();
+
+  TextColumn get thumbnailRelativePath => text().withLength(min: 1, max: 500)();
+
+  TextColumn get mediaType => text().withLength(min: 1, max: 100)();
+
+  IntColumn get sizeBytes =>
+      integer().check(const CustomExpression<bool>('size_bytes > 0'))();
+
+  IntColumn get width =>
+      integer().check(const CustomExpression<bool>('width > 0'))();
+
+  IntColumn get height =>
+      integer().check(const CustomExpression<bool>('height > 0'))();
+
+  TextColumn get checksumSha256 => text().withLength(min: 64, max: 64)();
+
+  IntColumn get position => integer().withDefault(const Constant(0))();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get updatedAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  IntColumn get filesDeletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
 @DriftDatabase(
   tables: [
     AppMetadata,
@@ -180,6 +267,9 @@ class GoalKeyResults extends Table {
     Visions,
     Goals,
     GoalKeyResults,
+    DiaryEntries,
+    DiaryTags,
+    DiaryAttachments,
   ],
 )
 final class AppDatabase extends _$AppDatabase {
@@ -188,11 +278,14 @@ final class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onCreate: (migrator) => migrator.createAll(),
+    onCreate: (migrator) async {
+      await migrator.createAll();
+      await _createDiaryIndexes();
+    },
     onUpgrade: (migrator, from, to) async {
       if (from < 2) {
         await migrator.createTable(dailyRecords);
@@ -205,9 +298,22 @@ final class AppDatabase extends _$AppDatabase {
         await migrator.createTable(goals);
         await migrator.createTable(goalKeyResults);
       }
+      if (from < 5) {
+        await migrator.createTable(diaryEntries);
+        await migrator.createTable(diaryTags);
+        await migrator.createTable(diaryAttachments);
+        await _createDiaryIndexes();
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
     },
   );
+
+  Future<void> _createDiaryIndexes() {
+    return customStatement(
+      'CREATE UNIQUE INDEX IF NOT EXISTS diary_entries_active_date_unique '
+      'ON diary_entries(local_date) WHERE deleted_at IS NULL',
+    );
+  }
 }

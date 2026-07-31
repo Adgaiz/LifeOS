@@ -34,6 +34,9 @@ final class LifeOsScaffold extends StatelessWidget {
             case 2:
               context.go('/goals');
               return;
+            case 3:
+              context.go('/diary');
+              return;
           }
         },
         destinations: const [
@@ -51,6 +54,11 @@ final class LifeOsScaffold extends StatelessWidget {
             icon: Icon(Icons.flag_outlined),
             selectedIcon: Icon(Icons.flag_rounded),
             label: '目标',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.menu_book_outlined),
+            selectedIcon: Icon(Icons.menu_book_rounded),
+            label: '日记',
           ),
         ],
       ),

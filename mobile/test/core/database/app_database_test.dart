@@ -13,7 +13,7 @@ void main() {
     await database.close();
   });
 
-  test('creates schema version four and stores metadata', () async {
+  test('creates schema version five and stores metadata', () async {
     final updatedAt = DateTime.utc(2026, 7, 29);
     await database
         .into(database.appMetadata)
@@ -27,7 +27,7 @@ void main() {
 
     final record = await database.select(database.appMetadata).getSingle();
 
-    expect(database.schemaVersion, 4);
+    expect(database.schemaVersion, 5);
     expect(record.metadataKey, 'schema_baseline');
     expect(record.metadataValue, '1');
     expect(record.updatedAt, updatedAt);
@@ -59,7 +59,8 @@ void main() {
       '''SELECT name FROM sqlite_master WHERE type = 'table'
              AND name IN (
                'daily_records', 'daily_actions', 'visions',
-               'goals', 'goal_key_results'
+               'goals', 'goal_key_results', 'diary_entries',
+               'diary_tags', 'diary_attachments'
              )
              ORDER BY name''',
     ).get();
@@ -68,6 +69,9 @@ void main() {
     expect(businessTables.map((row) => row.read<String>('name')), [
       'daily_actions',
       'daily_records',
+      'diary_attachments',
+      'diary_entries',
+      'diary_tags',
       'goal_key_results',
       'goals',
       'visions',
@@ -131,4 +135,45 @@ void main() {
       'goals',
     ]);
   });
+
+  test(
+    'migrates schema version four by adding diary tables and index',
+    () async {
+      await database.close();
+      database = AppDatabase.forTesting(
+        NativeDatabase.memory(
+          setup: (sqlite) {
+            sqlite
+              ..execute('''
+              CREATE TABLE app_metadata (
+                metadata_key TEXT NOT NULL PRIMARY KEY,
+                metadata_value TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+              )
+            ''')
+              ..execute('PRAGMA user_version = 4');
+          },
+        ),
+      );
+
+      final tables = await database.customSelect(
+        '''SELECT name FROM sqlite_master WHERE type = 'table'
+             AND name IN ('diary_entries', 'diary_tags', 'diary_attachments')
+             ORDER BY name''',
+      ).get();
+      final index = await database
+          .customSelect(
+            "SELECT name FROM sqlite_master WHERE type = 'index' "
+            "AND name = 'diary_entries_active_date_unique'",
+          )
+          .getSingle();
+
+      expect(tables.map((row) => row.read<String>('name')), [
+        'diary_attachments',
+        'diary_entries',
+        'diary_tags',
+      ]);
+      expect(index.read<String>('name'), 'diary_entries_active_date_unique');
+    },
+  );
 }
