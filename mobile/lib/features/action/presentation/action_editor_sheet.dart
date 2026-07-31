@@ -4,6 +4,8 @@ import 'package:lifeos/core/ui/design_tokens.dart';
 import 'package:lifeos/features/action/application/action_providers.dart';
 import 'package:lifeos/features/action/domain/daily_action.dart';
 import 'package:lifeos/features/daily/domain/calendar_date.dart';
+import 'package:lifeos/features/goal/application/goal_providers.dart';
+import 'package:lifeos/features/goal/domain/goal.dart';
 
 Future<void> showActionEditorSheet({
   required BuildContext context,
@@ -32,6 +34,7 @@ final class _ActionEditorSheetState extends ConsumerState<_ActionEditorSheet> {
   final _titleController = TextEditingController();
   final _minimumController = TextEditingController();
   ActionCategory _category = ActionCategory.life;
+  String? _goalId;
   var _isSaving = false;
 
   @override
@@ -54,6 +57,7 @@ final class _ActionEditorSheetState extends ConsumerState<_ActionEditorSheet> {
             title: _titleController.text,
             category: _category,
             minimumAction: _minimumController.text,
+            goalId: _goalId,
           );
       if (mounted) {
         Navigator.of(context).pop();
@@ -79,6 +83,7 @@ final class _ActionEditorSheetState extends ConsumerState<_ActionEditorSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final goals = ref.watch(allGoalsProvider);
     return SingleChildScrollView(
       padding: EdgeInsets.fromLTRB(
         LifeOsSpacing.xl,
@@ -129,6 +134,37 @@ final class _ActionEditorSheetState extends ConsumerState<_ActionEditorSheet> {
                 if (value != null) {
                   setState(() => _category = value);
                 }
+              },
+            ),
+            const SizedBox(height: LifeOsSpacing.md),
+            goals.when(
+              loading: () => const LinearProgressIndicator(),
+              error: (_, _) => const Text('目标暂时无法读取，可先不关联'),
+              data: (items) {
+                final active = items
+                    .where(
+                      (aggregate) => aggregate.goal.status == GoalStatus.active,
+                    )
+                    .toList(growable: false);
+                return DropdownButtonFormField<String?>(
+                  initialValue: _goalId,
+                  decoration: const InputDecoration(labelText: '关联 90 天目标（可选）'),
+                  items: [
+                    const DropdownMenuItem<String?>(
+                      value: null,
+                      child: Text('暂不关联'),
+                    ),
+                    for (final aggregate in active)
+                      DropdownMenuItem<String?>(
+                        value: aggregate.goal.id,
+                        child: Text(
+                          aggregate.goal.title,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                  ],
+                  onChanged: (value) => setState(() => _goalId = value),
+                );
               },
             ),
             const SizedBox(height: LifeOsSpacing.md),

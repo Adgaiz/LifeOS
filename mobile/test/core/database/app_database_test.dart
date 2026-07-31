@@ -13,7 +13,7 @@ void main() {
     await database.close();
   });
 
-  test('creates schema version three and stores metadata', () async {
+  test('creates schema version four and stores metadata', () async {
     final updatedAt = DateTime.utc(2026, 7, 29);
     await database
         .into(database.appMetadata)
@@ -27,7 +27,7 @@ void main() {
 
     final record = await database.select(database.appMetadata).getSingle();
 
-    expect(database.schemaVersion, 3);
+    expect(database.schemaVersion, 4);
     expect(record.metadataKey, 'schema_baseline');
     expect(record.metadataValue, '1');
     expect(record.updatedAt, updatedAt);
@@ -57,7 +57,10 @@ void main() {
     final metadata = await database.select(database.appMetadata).getSingle();
     final businessTables = await database.customSelect(
       '''SELECT name FROM sqlite_master WHERE type = 'table'
-             AND name IN ('daily_records', 'daily_actions', 'visions')
+             AND name IN (
+               'daily_records', 'daily_actions', 'visions',
+               'goals', 'goal_key_results'
+             )
              ORDER BY name''',
     ).get();
 
@@ -65,6 +68,8 @@ void main() {
     expect(businessTables.map((row) => row.read<String>('name')), [
       'daily_actions',
       'daily_records',
+      'goal_key_results',
+      'goals',
       'visions',
     ]);
   });
@@ -95,5 +100,35 @@ void main() {
         .getSingle();
 
     expect(table.read<String>('name'), 'visions');
+  });
+
+  test('migrates schema version three by adding goals', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (sqlite) {
+          sqlite
+            ..execute('''
+              CREATE TABLE app_metadata (
+                metadata_key TEXT NOT NULL PRIMARY KEY,
+                metadata_value TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+              )
+            ''')
+            ..execute('PRAGMA user_version = 3');
+        },
+      ),
+    );
+
+    final tables = await database.customSelect(
+      '''SELECT name FROM sqlite_master WHERE type = 'table'
+             AND name IN ('goals', 'goal_key_results')
+             ORDER BY name''',
+    ).get();
+
+    expect(tables.map((row) => row.read<String>('name')), [
+      'goal_key_results',
+      'goals',
+    ]);
   });
 }

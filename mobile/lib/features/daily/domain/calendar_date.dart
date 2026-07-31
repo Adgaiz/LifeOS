@@ -45,6 +45,17 @@ final class CalendarDate implements Comparable<CalendarDate> {
 
   DateTime toLocalDateTime() => DateTime(year, month, day);
 
+  CalendarDate addDays(int days) {
+    final result = DateTime.utc(year, month, day).add(Duration(days: days));
+    return CalendarDate(result.year, result.month, result.day);
+  }
+
+  int daysUntil(CalendarDate other) {
+    final start = DateTime.utc(year, month, day);
+    final end = DateTime.utc(other.year, other.month, other.day);
+    return end.difference(start).inDays;
+  }
+
   String toIso8601String() =>
       '${year.toString().padLeft(4, '0')}-'
       '${month.toString().padLeft(2, '0')}-'

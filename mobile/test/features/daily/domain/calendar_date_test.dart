@@ -17,6 +17,15 @@ void main() {
     expect(() => CalendarDate(2026, 2, 30), throwsA(isA<ArgumentError>()));
   });
 
+  test('adds and counts calendar days across a leap day', () {
+    final start = CalendarDate(2028, 2, 28);
+    final end = start.addDays(2);
+
+    expect(end, CalendarDate(2028, 3, 1));
+    expect(start.daysUntil(end), 2);
+    expect(end.daysUntil(start), -2);
+  });
+
   test('formats positive and negative timezone offsets', () {
     expect(
       timeZoneOffsetId(DateTime.parse('2026-07-29T12:00:00+08:00')),

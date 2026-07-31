@@ -22,11 +22,13 @@ void main() {
       title: '  跑步 5 公里  ',
       category: ActionCategory.health,
       minimumAction: '  散步 10 分钟  ',
+      goalId: '00000000-0000-4000-8000-000000000020',
     );
 
     final action = repository.items.single;
     expect(action.title, '跑步 5 公里');
     expect(action.minimumAction, '散步 10 分钟');
+    expect(action.goalId, '00000000-0000-4000-8000-000000000020');
     expect(action.status, ActionStatus.pending);
     expect(action.version, 1);
   });

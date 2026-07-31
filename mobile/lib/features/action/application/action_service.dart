@@ -17,6 +17,7 @@ final class ActionService {
     required String title,
     required ActionCategory category,
     String? minimumAction,
+    String? goalId,
   }) async {
     final normalizedTitle = title.trim();
     final normalizedMinimum = minimumAction?.trim();
@@ -31,6 +32,7 @@ final class ActionService {
       DailyAction(
         id: _uuid.v4(),
         localDate: localDate,
+        goalId: goalId,
         title: normalizedTitle,
         minimumAction: normalizedMinimum?.isEmpty ?? true
             ? null
