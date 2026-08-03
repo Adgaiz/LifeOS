@@ -5,6 +5,8 @@ enum AiMessageRole {
   String get apiValue => name;
 }
 
+enum AiReasoningMode { providerDefault, disabled, enabled }
+
 final class AiMessage {
   const AiMessage({required this.role, required this.text});
 
@@ -17,6 +19,7 @@ final class AiRequest {
     required List<AiMessage> messages,
     this.systemInstruction,
     this.maxOutputTokens = 800,
+    this.reasoningMode = AiReasoningMode.providerDefault,
   }) : messages = List.unmodifiable(messages) {
     if (messages.isEmpty ||
         messages.any((message) => message.text.trim().isEmpty)) {
@@ -30,4 +33,5 @@ final class AiRequest {
   final String? systemInstruction;
   final List<AiMessage> messages;
   final int maxOutputTokens;
+  final AiReasoningMode reasoningMode;
 }

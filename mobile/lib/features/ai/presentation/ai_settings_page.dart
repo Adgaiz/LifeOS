@@ -145,7 +145,8 @@ final class _AiSettingsPageState extends ConsumerState<AiSettingsPage> {
               messages: const [
                 AiMessage(role: AiMessageRole.user, text: '仅回复：连接成功'),
               ],
-              maxOutputTokens: 16,
+              maxOutputTokens: 64,
+              reasoningMode: AiReasoningMode.disabled,
             ),
           );
       if (mounted) _showMessage('${_provider.displayName} 连接成功');

@@ -29,6 +29,7 @@
 - API Key、模型名和当前 Provider 通过 `flutter_secure_storage` 保存，由 Android Keystore 提供密钥保护。
 - API Key 不进入 SQLite、源码、日志、崩溃信息或 Git；保存后界面仅显示末四位掩码。
 - 设置页支持保存、替换、删除和主动连接测试。连接测试会先提示可能产生费用，并且只发送固定的最小测试消息。
+- DeepSeek 默认开启思考模式；连接测试会显式关闭思考并预留 64 个输出 Token，避免思考过程耗尽额度后最终 `content` 为空。正式场景可通过统一请求参数明确选择思考模式。
 - 本模块不读取 Daily、Goal、Diary 或图片。后续 AI 场景必须在调用前明确展示并获得本次上下文授权；默认不发送全部历史日记。
 - OpenAI 请求显式设置 `store: false`。所有 Provider 只使用 HTTPS 固定官方域名，首期不开放自定义 Base URL，避免误配置与请求伪造风险。
 
@@ -43,6 +44,7 @@
 - 网络不可用
 - Provider 暂时不可用
 - 响应结构异常
+- 输出达到 Token 上限或内容被服务商过滤
 
 AI 调用失败不会影响 Daily、Vision、Goal、Diary 等离线核心能力。
 

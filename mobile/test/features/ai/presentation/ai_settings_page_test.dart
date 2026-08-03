@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lifeos/features/ai/application/ai_providers.dart';
 import 'package:lifeos/features/ai/domain/ai_provider.dart';
+import 'package:lifeos/features/ai/domain/ai_request.dart';
+import 'package:lifeos/features/ai/domain/ai_response.dart';
+import 'package:lifeos/features/ai/domain/ai_service.dart';
 import 'package:lifeos/features/ai/domain/ai_settings_repository.dart';
 import 'package:lifeos/features/ai/presentation/ai_settings_page.dart';
 
@@ -43,6 +46,53 @@ void main() {
     expect(repository.configuration, isNull);
     expect(find.text('尚未配置'), findsOneWidget);
   });
+
+  testWidgets('connection test disables reasoning and reserves output tokens', (
+    tester,
+  ) async {
+    final repository = _MemorySettingsRepository()
+      ..configuration = const AiProviderConfiguration(
+        provider: AiProviderType.deepSeek,
+        apiKey: 'fake-key',
+        model: 'deepseek-v4-flash',
+      );
+    final aiService = _RecordingAiService();
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          aiSettingsRepositoryProvider.overrideWithValue(repository),
+          aiServiceProvider.overrideWithValue(aiService),
+        ],
+        child: const MaterialApp(home: AiSettingsPage()),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final testButton = find.widgetWithText(OutlinedButton, '保存并测试连接');
+    await tester.ensureVisible(testButton);
+    await tester.tap(testButton);
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(FilledButton, '开始测试'));
+    await tester.pumpAndSettle();
+
+    expect(aiService.request?.reasoningMode, AiReasoningMode.disabled);
+    expect(aiService.request?.maxOutputTokens, 64);
+    expect(find.text('DeepSeek 连接成功'), findsOneWidget);
+  });
+}
+
+final class _RecordingAiService implements AiService {
+  AiRequest? request;
+
+  @override
+  Future<AiResponse> generate(AiRequest value) async {
+    request = value;
+    return const AiResponse(
+      text: '连接成功',
+      provider: AiProviderType.deepSeek,
+      model: 'deepseek-v4-flash',
+    );
+  }
 }
 
 final class _MemorySettingsRepository implements AiSettingsRepository {

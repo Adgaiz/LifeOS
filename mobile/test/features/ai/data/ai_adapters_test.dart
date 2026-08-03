@@ -130,9 +130,65 @@ void main() {
     expect(client.lastHeaders?['authorization'], 'Bearer test-secret-key');
     expect(body['model'], AiProviderType.deepSeek.defaultModel);
     expect(body['stream'], isFalse);
+    expect(body, isNot(contains('thinking')));
     expect((messages.first as Map<String, dynamic>)['role'], 'system');
     expect(response.text, '先完成最小的一步。');
     expect(response.provider, AiProviderType.deepSeek);
+  });
+
+  test('DeepSeek adapter can explicitly disable thinking mode', () async {
+    final client = _FakeHttpClient(
+      responseBody: jsonEncode({
+        'choices': [
+          {
+            'finish_reason': 'stop',
+            'message': {'content': '连接成功'},
+          },
+        ],
+      }),
+    );
+    final adapter = DeepSeekAdapter(
+      client,
+      _configuration(AiProviderType.deepSeek),
+    );
+
+    await adapter.generate(
+      AiRequest(
+        messages: const [AiMessage(role: AiMessageRole.user, text: '测试')],
+        maxOutputTokens: 64,
+        reasoningMode: AiReasoningMode.disabled,
+      ),
+    );
+    final body = jsonDecode(client.lastBody!) as Map<String, dynamic>;
+
+    expect(body['max_tokens'], 64);
+    expect(body['thinking'], {'type': 'disabled'});
+  });
+
+  test('DeepSeek output limit returns an actionable typed failure', () async {
+    final client = _FakeHttpClient(
+      responseBody: jsonEncode({
+        'choices': [
+          {
+            'finish_reason': 'length',
+            'message': {'content': '', 'reasoning_content': '仍在思考'},
+          },
+        ],
+      }),
+    );
+    final adapter = DeepSeekAdapter(
+      client,
+      _configuration(AiProviderType.deepSeek),
+    );
+
+    expect(
+      () => adapter.generate(request),
+      throwsA(
+        isA<AiException>()
+            .having((error) => error.type, 'type', AiFailureType.outputLimit)
+            .having((error) => error.message, 'message', contains('输出上限')),
+      ),
+    );
   });
 
   test('HTTP failures are mapped without provider body or secret', () async {

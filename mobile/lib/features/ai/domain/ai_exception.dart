@@ -5,6 +5,8 @@ enum AiFailureType {
   timeout,
   network,
   providerUnavailable,
+  outputLimit,
+  contentFiltered,
   malformedResponse,
 }
 
