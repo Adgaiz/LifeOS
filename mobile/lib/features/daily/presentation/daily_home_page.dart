@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lifeos/app/navigation/lifeos_scaffold.dart';
 import 'package:lifeos/core/ui/design_tokens.dart';
 import 'package:lifeos/features/action/presentation/action_section.dart';
@@ -33,7 +34,10 @@ final class DailyHomePage extends ConsumerWidget {
               LifeOsSpacing.xxl,
             ),
             children: [
-              _TodayHeader(date: date),
+              _TodayHeader(
+                date: date,
+                onOpenAiSettings: () => context.push('/settings/ai'),
+              ),
               const SizedBox(height: LifeOsSpacing.xl),
               record.when(
                 loading: () => const _StatusLoadingCard(),
@@ -63,9 +67,10 @@ final class DailyHomePage extends ConsumerWidget {
 }
 
 final class _TodayHeader extends StatelessWidget {
-  const _TodayHeader({required this.date});
+  const _TodayHeader({required this.date, required this.onOpenAiSettings});
 
   final CalendarDate date;
+  final VoidCallback onOpenAiSettings;
 
   static const _weekdays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 
@@ -95,6 +100,12 @@ final class _TodayHeader extends StatelessWidget {
             ],
           ),
         ),
+        IconButton(
+          tooltip: 'AI 服务设置',
+          onPressed: onOpenAiSettings,
+          icon: const Icon(Icons.auto_awesome_outlined),
+        ),
+        const SizedBox(width: LifeOsSpacing.xs),
         const _LifeOsMark(),
       ],
     );

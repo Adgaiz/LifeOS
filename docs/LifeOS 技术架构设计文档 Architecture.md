@@ -24,7 +24,7 @@
 2. **长期可信**：用户数据可追溯、可迁移、可备份，避免因升级或同步造成数据丢失。
 3. **温暖克制**：技术服务于陪伴体验，不使用强制打卡、焦虑排行或过度提醒。
 4. **模块清晰**：业务模块高内聚、低耦合，可按阶段独立开发和测试。
-5. **AI 可替换**：业务层不依赖具体模型厂商，支持 OpenAI、Gemini、Claude 及未来服务端代理。
+5. **AI 可替换**：业务层不依赖具体模型厂商，支持 OpenAI、Gemini、Claude、DeepSeek 及未来服务端代理。
 6. **渐进演进**：先完成个人可用的本地版本，再增加账户、同步、云端 AI 和多设备能力。
 7. **生产可维护**：统一异常、日志、配置、测试、数据库迁移和可观测性规范。
 
@@ -86,7 +86,7 @@ flowchart TB
         Repo --> Secure[系统安全存储]
         Repo --> Sync[Sync Adapter]
         UC --> AIHub[AI Service Abstraction]
-        AIHub --> LocalProviders[OpenAI / Gemini / Claude Adapter]
+        AIHub --> LocalProviders[OpenAI / Gemini / Claude / DeepSeek Adapter]
     end
 
     Sync -->|HTTPS / JSON| API[Spring Boot API]
@@ -457,6 +457,7 @@ AiProviderAdapter
 ├─ OpenAiAdapter
 ├─ GeminiAdapter
 ├─ ClaudeAdapter
+├─ DeepSeekAdapter
 └─ RemoteAiAdapter      # 未来服务端统一调用
 
 CompanionScenario
@@ -668,7 +669,7 @@ Provider Adapter 将厂商错误映射为统一类型：
 ### Stage 3：AI Companion MVP
 
 - AI Service 抽象
-- OpenAI、Gemini、Claude Adapter
+- OpenAI、Gemini、Claude、DeepSeek Adapter
 - 本地安全配置 API Key
 - AI 每日总结，先落地 Coach/Analyst 的有限场景
 - Friend 安全边界与陪伴场景
