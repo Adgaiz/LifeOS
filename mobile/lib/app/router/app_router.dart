@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lifeos/app/startup/foundation_page.dart';
 import 'package:lifeos/features/ai/presentation/ai_settings_page.dart';
+import 'package:lifeos/features/ai_companion/daily_review/presentation/daily_review_page.dart';
 import 'package:lifeos/features/daily/presentation/daily_home_page.dart';
 import 'package:lifeos/features/diary/presentation/diary_page.dart';
 import 'package:lifeos/features/goal/presentation/goal_page.dart';
@@ -21,6 +22,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings/ai',
         builder: (context, state) => const AiSettingsPage(),
+      ),
+      GoRoute(
+        path: '/ai/daily-review',
+        builder: (context, state) => const DailyReviewPage(),
       ),
     ],
   );

@@ -259,6 +259,39 @@ class DiaryAttachments extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
+@DataClassName('AiDailyReviewRow')
+class AiDailyReviews extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get localDate => text().withLength(min: 10, max: 10)();
+
+  TextColumn get content => text().withLength(min: 1, max: 20000)();
+
+  TextColumn get provider => text().withLength(min: 1, max: 32)();
+
+  TextColumn get model => text().withLength(min: 1, max: 120)();
+
+  TextColumn get contextTypes => text().withLength(min: 1, max: 200)();
+
+  IntColumn get promptVersion => integer().withDefault(const Constant(1))();
+
+  TextColumn get requestId => text().withLength(max: 200).nullable()();
+
+  IntColumn get inputTokens => integer().nullable()();
+
+  IntColumn get outputTokens => integer().nullable()();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
 @DriftDatabase(
   tables: [
     AppMetadata,
@@ -270,6 +303,7 @@ class DiaryAttachments extends Table {
     DiaryEntries,
     DiaryTags,
     DiaryAttachments,
+    AiDailyReviews,
   ],
 )
 final class AppDatabase extends _$AppDatabase {
@@ -278,13 +312,14 @@ final class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (migrator) async {
       await migrator.createAll();
       await _createDiaryIndexes();
+      await _createAiDailyReviewIndexes();
     },
     onUpgrade: (migrator, from, to) async {
       if (from < 2) {
@@ -304,6 +339,10 @@ final class AppDatabase extends _$AppDatabase {
         await migrator.createTable(diaryAttachments);
         await _createDiaryIndexes();
       }
+      if (from < 6) {
+        await migrator.createTable(aiDailyReviews);
+        await _createAiDailyReviewIndexes();
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -314,6 +353,14 @@ final class AppDatabase extends _$AppDatabase {
     return customStatement(
       'CREATE UNIQUE INDEX IF NOT EXISTS diary_entries_active_date_unique '
       'ON diary_entries(local_date) WHERE deleted_at IS NULL',
+    );
+  }
+
+  Future<void> _createAiDailyReviewIndexes() {
+    return customStatement(
+      'CREATE INDEX IF NOT EXISTS ai_daily_reviews_date_created_index '
+      'ON ai_daily_reviews(local_date, created_at DESC) '
+      'WHERE deleted_at IS NULL',
     );
   }
 }

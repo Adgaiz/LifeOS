@@ -5494,6 +5494,805 @@ class DiaryAttachmentsCompanion extends UpdateCompanion<DiaryAttachmentRow> {
   }
 }
 
+class $AiDailyReviewsTable extends AiDailyReviews
+    with TableInfo<$AiDailyReviewsTable, AiDailyReviewRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AiDailyReviewsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 36,
+      maxTextLength: 36,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _localDateMeta = const VerificationMeta(
+    'localDate',
+  );
+  @override
+  late final GeneratedColumn<String> localDate = GeneratedColumn<String>(
+    'local_date',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 10,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+    'content',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 20000,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _providerMeta = const VerificationMeta(
+    'provider',
+  );
+  @override
+  late final GeneratedColumn<String> provider = GeneratedColumn<String>(
+    'provider',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 32,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
+    'model',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 120,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contextTypesMeta = const VerificationMeta(
+    'contextTypes',
+  );
+  @override
+  late final GeneratedColumn<String> contextTypes = GeneratedColumn<String>(
+    'context_types',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 200,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _promptVersionMeta = const VerificationMeta(
+    'promptVersion',
+  );
+  @override
+  late final GeneratedColumn<int> promptVersion = GeneratedColumn<int>(
+    'prompt_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _requestIdMeta = const VerificationMeta(
+    'requestId',
+  );
+  @override
+  late final GeneratedColumn<String> requestId = GeneratedColumn<String>(
+    'request_id',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 200),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _inputTokensMeta = const VerificationMeta(
+    'inputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> inputTokens = GeneratedColumn<int>(
+    'input_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _outputTokensMeta = const VerificationMeta(
+    'outputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> outputTokens = GeneratedColumn<int>(
+    'output_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AiDailyReviewsTable.$convertercreatedAt);
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime?, int> deletedAt =
+      GeneratedColumn<int>(
+        'deleted_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      ).withConverter<DateTime?>($AiDailyReviewsTable.$converterdeletedAtn);
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    localDate,
+    content,
+    provider,
+    model,
+    contextTypes,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ai_daily_reviews';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AiDailyReviewRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('local_date')) {
+      context.handle(
+        _localDateMeta,
+        localDate.isAcceptableOrUnknown(data['local_date']!, _localDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_localDateMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('provider')) {
+      context.handle(
+        _providerMeta,
+        provider.isAcceptableOrUnknown(data['provider']!, _providerMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_providerMeta);
+    }
+    if (data.containsKey('model')) {
+      context.handle(
+        _modelMeta,
+        model.isAcceptableOrUnknown(data['model']!, _modelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelMeta);
+    }
+    if (data.containsKey('context_types')) {
+      context.handle(
+        _contextTypesMeta,
+        contextTypes.isAcceptableOrUnknown(
+          data['context_types']!,
+          _contextTypesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_contextTypesMeta);
+    }
+    if (data.containsKey('prompt_version')) {
+      context.handle(
+        _promptVersionMeta,
+        promptVersion.isAcceptableOrUnknown(
+          data['prompt_version']!,
+          _promptVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('request_id')) {
+      context.handle(
+        _requestIdMeta,
+        requestId.isAcceptableOrUnknown(data['request_id']!, _requestIdMeta),
+      );
+    }
+    if (data.containsKey('input_tokens')) {
+      context.handle(
+        _inputTokensMeta,
+        inputTokens.isAcceptableOrUnknown(
+          data['input_tokens']!,
+          _inputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('output_tokens')) {
+      context.handle(
+        _outputTokensMeta,
+        outputTokens.isAcceptableOrUnknown(
+          data['output_tokens']!,
+          _outputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AiDailyReviewRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AiDailyReviewRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      localDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}local_date'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      provider: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provider'],
+      )!,
+      model: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model'],
+      )!,
+      contextTypes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}context_types'],
+      )!,
+      promptVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}prompt_version'],
+      )!,
+      requestId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}request_id'],
+      ),
+      inputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}input_tokens'],
+      ),
+      outputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}output_tokens'],
+      ),
+      createdAt: $AiDailyReviewsTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      deletedAt: $AiDailyReviewsTable.$converterdeletedAtn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}deleted_at'],
+        ),
+      ),
+    );
+  }
+
+  @override
+  $AiDailyReviewsTable createAlias(String alias) {
+    return $AiDailyReviewsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime, int> $converterdeletedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime?, int?> $converterdeletedAtn =
+      NullAwareTypeConverter.wrap($converterdeletedAt);
+}
+
+class AiDailyReviewRow extends DataClass
+    implements Insertable<AiDailyReviewRow> {
+  final String id;
+  final String localDate;
+  final String content;
+  final String provider;
+  final String model;
+  final String contextTypes;
+  final int promptVersion;
+  final String? requestId;
+  final int? inputTokens;
+  final int? outputTokens;
+  final DateTime createdAt;
+  final int version;
+  final DateTime? deletedAt;
+  const AiDailyReviewRow({
+    required this.id,
+    required this.localDate,
+    required this.content,
+    required this.provider,
+    required this.model,
+    required this.contextTypes,
+    required this.promptVersion,
+    this.requestId,
+    this.inputTokens,
+    this.outputTokens,
+    required this.createdAt,
+    required this.version,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['local_date'] = Variable<String>(localDate);
+    map['content'] = Variable<String>(content);
+    map['provider'] = Variable<String>(provider);
+    map['model'] = Variable<String>(model);
+    map['context_types'] = Variable<String>(contextTypes);
+    map['prompt_version'] = Variable<int>(promptVersion);
+    if (!nullToAbsent || requestId != null) {
+      map['request_id'] = Variable<String>(requestId);
+    }
+    if (!nullToAbsent || inputTokens != null) {
+      map['input_tokens'] = Variable<int>(inputTokens);
+    }
+    if (!nullToAbsent || outputTokens != null) {
+      map['output_tokens'] = Variable<int>(outputTokens);
+    }
+    {
+      map['created_at'] = Variable<int>(
+        $AiDailyReviewsTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    map['version'] = Variable<int>(version);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(
+        $AiDailyReviewsTable.$converterdeletedAtn.toSql(deletedAt),
+      );
+    }
+    return map;
+  }
+
+  AiDailyReviewsCompanion toCompanion(bool nullToAbsent) {
+    return AiDailyReviewsCompanion(
+      id: Value(id),
+      localDate: Value(localDate),
+      content: Value(content),
+      provider: Value(provider),
+      model: Value(model),
+      contextTypes: Value(contextTypes),
+      promptVersion: Value(promptVersion),
+      requestId: requestId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(requestId),
+      inputTokens: inputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inputTokens),
+      outputTokens: outputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(outputTokens),
+      createdAt: Value(createdAt),
+      version: Value(version),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory AiDailyReviewRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AiDailyReviewRow(
+      id: serializer.fromJson<String>(json['id']),
+      localDate: serializer.fromJson<String>(json['localDate']),
+      content: serializer.fromJson<String>(json['content']),
+      provider: serializer.fromJson<String>(json['provider']),
+      model: serializer.fromJson<String>(json['model']),
+      contextTypes: serializer.fromJson<String>(json['contextTypes']),
+      promptVersion: serializer.fromJson<int>(json['promptVersion']),
+      requestId: serializer.fromJson<String?>(json['requestId']),
+      inputTokens: serializer.fromJson<int?>(json['inputTokens']),
+      outputTokens: serializer.fromJson<int?>(json['outputTokens']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      version: serializer.fromJson<int>(json['version']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'localDate': serializer.toJson<String>(localDate),
+      'content': serializer.toJson<String>(content),
+      'provider': serializer.toJson<String>(provider),
+      'model': serializer.toJson<String>(model),
+      'contextTypes': serializer.toJson<String>(contextTypes),
+      'promptVersion': serializer.toJson<int>(promptVersion),
+      'requestId': serializer.toJson<String?>(requestId),
+      'inputTokens': serializer.toJson<int?>(inputTokens),
+      'outputTokens': serializer.toJson<int?>(outputTokens),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'version': serializer.toJson<int>(version),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+    };
+  }
+
+  AiDailyReviewRow copyWith({
+    String? id,
+    String? localDate,
+    String? content,
+    String? provider,
+    String? model,
+    String? contextTypes,
+    int? promptVersion,
+    Value<String?> requestId = const Value.absent(),
+    Value<int?> inputTokens = const Value.absent(),
+    Value<int?> outputTokens = const Value.absent(),
+    DateTime? createdAt,
+    int? version,
+    Value<DateTime?> deletedAt = const Value.absent(),
+  }) => AiDailyReviewRow(
+    id: id ?? this.id,
+    localDate: localDate ?? this.localDate,
+    content: content ?? this.content,
+    provider: provider ?? this.provider,
+    model: model ?? this.model,
+    contextTypes: contextTypes ?? this.contextTypes,
+    promptVersion: promptVersion ?? this.promptVersion,
+    requestId: requestId.present ? requestId.value : this.requestId,
+    inputTokens: inputTokens.present ? inputTokens.value : this.inputTokens,
+    outputTokens: outputTokens.present ? outputTokens.value : this.outputTokens,
+    createdAt: createdAt ?? this.createdAt,
+    version: version ?? this.version,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  AiDailyReviewRow copyWithCompanion(AiDailyReviewsCompanion data) {
+    return AiDailyReviewRow(
+      id: data.id.present ? data.id.value : this.id,
+      localDate: data.localDate.present ? data.localDate.value : this.localDate,
+      content: data.content.present ? data.content.value : this.content,
+      provider: data.provider.present ? data.provider.value : this.provider,
+      model: data.model.present ? data.model.value : this.model,
+      contextTypes: data.contextTypes.present
+          ? data.contextTypes.value
+          : this.contextTypes,
+      promptVersion: data.promptVersion.present
+          ? data.promptVersion.value
+          : this.promptVersion,
+      requestId: data.requestId.present ? data.requestId.value : this.requestId,
+      inputTokens: data.inputTokens.present
+          ? data.inputTokens.value
+          : this.inputTokens,
+      outputTokens: data.outputTokens.present
+          ? data.outputTokens.value
+          : this.outputTokens,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      version: data.version.present ? data.version.value : this.version,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiDailyReviewRow(')
+          ..write('id: $id, ')
+          ..write('localDate: $localDate, ')
+          ..write('content: $content, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('contextTypes: $contextTypes, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    localDate,
+    content,
+    provider,
+    model,
+    contextTypes,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AiDailyReviewRow &&
+          other.id == this.id &&
+          other.localDate == this.localDate &&
+          other.content == this.content &&
+          other.provider == this.provider &&
+          other.model == this.model &&
+          other.contextTypes == this.contextTypes &&
+          other.promptVersion == this.promptVersion &&
+          other.requestId == this.requestId &&
+          other.inputTokens == this.inputTokens &&
+          other.outputTokens == this.outputTokens &&
+          other.createdAt == this.createdAt &&
+          other.version == this.version &&
+          other.deletedAt == this.deletedAt);
+}
+
+class AiDailyReviewsCompanion extends UpdateCompanion<AiDailyReviewRow> {
+  final Value<String> id;
+  final Value<String> localDate;
+  final Value<String> content;
+  final Value<String> provider;
+  final Value<String> model;
+  final Value<String> contextTypes;
+  final Value<int> promptVersion;
+  final Value<String?> requestId;
+  final Value<int?> inputTokens;
+  final Value<int?> outputTokens;
+  final Value<DateTime> createdAt;
+  final Value<int> version;
+  final Value<DateTime?> deletedAt;
+  final Value<int> rowid;
+  const AiDailyReviewsCompanion({
+    this.id = const Value.absent(),
+    this.localDate = const Value.absent(),
+    this.content = const Value.absent(),
+    this.provider = const Value.absent(),
+    this.model = const Value.absent(),
+    this.contextTypes = const Value.absent(),
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AiDailyReviewsCompanion.insert({
+    required String id,
+    required String localDate,
+    required String content,
+    required String provider,
+    required String model,
+    required String contextTypes,
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    required DateTime createdAt,
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       localDate = Value(localDate),
+       content = Value(content),
+       provider = Value(provider),
+       model = Value(model),
+       contextTypes = Value(contextTypes),
+       createdAt = Value(createdAt);
+  static Insertable<AiDailyReviewRow> custom({
+    Expression<String>? id,
+    Expression<String>? localDate,
+    Expression<String>? content,
+    Expression<String>? provider,
+    Expression<String>? model,
+    Expression<String>? contextTypes,
+    Expression<int>? promptVersion,
+    Expression<String>? requestId,
+    Expression<int>? inputTokens,
+    Expression<int>? outputTokens,
+    Expression<int>? createdAt,
+    Expression<int>? version,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (localDate != null) 'local_date': localDate,
+      if (content != null) 'content': content,
+      if (provider != null) 'provider': provider,
+      if (model != null) 'model': model,
+      if (contextTypes != null) 'context_types': contextTypes,
+      if (promptVersion != null) 'prompt_version': promptVersion,
+      if (requestId != null) 'request_id': requestId,
+      if (inputTokens != null) 'input_tokens': inputTokens,
+      if (outputTokens != null) 'output_tokens': outputTokens,
+      if (createdAt != null) 'created_at': createdAt,
+      if (version != null) 'version': version,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AiDailyReviewsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? localDate,
+    Value<String>? content,
+    Value<String>? provider,
+    Value<String>? model,
+    Value<String>? contextTypes,
+    Value<int>? promptVersion,
+    Value<String?>? requestId,
+    Value<int?>? inputTokens,
+    Value<int?>? outputTokens,
+    Value<DateTime>? createdAt,
+    Value<int>? version,
+    Value<DateTime?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return AiDailyReviewsCompanion(
+      id: id ?? this.id,
+      localDate: localDate ?? this.localDate,
+      content: content ?? this.content,
+      provider: provider ?? this.provider,
+      model: model ?? this.model,
+      contextTypes: contextTypes ?? this.contextTypes,
+      promptVersion: promptVersion ?? this.promptVersion,
+      requestId: requestId ?? this.requestId,
+      inputTokens: inputTokens ?? this.inputTokens,
+      outputTokens: outputTokens ?? this.outputTokens,
+      createdAt: createdAt ?? this.createdAt,
+      version: version ?? this.version,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (localDate.present) {
+      map['local_date'] = Variable<String>(localDate.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (provider.present) {
+      map['provider'] = Variable<String>(provider.value);
+    }
+    if (model.present) {
+      map['model'] = Variable<String>(model.value);
+    }
+    if (contextTypes.present) {
+      map['context_types'] = Variable<String>(contextTypes.value);
+    }
+    if (promptVersion.present) {
+      map['prompt_version'] = Variable<int>(promptVersion.value);
+    }
+    if (requestId.present) {
+      map['request_id'] = Variable<String>(requestId.value);
+    }
+    if (inputTokens.present) {
+      map['input_tokens'] = Variable<int>(inputTokens.value);
+    }
+    if (outputTokens.present) {
+      map['output_tokens'] = Variable<int>(outputTokens.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $AiDailyReviewsTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(
+        $AiDailyReviewsTable.$converterdeletedAtn.toSql(deletedAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiDailyReviewsCompanion(')
+          ..write('id: $id, ')
+          ..write('localDate: $localDate, ')
+          ..write('content: $content, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('contextTypes: $contextTypes, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -5508,6 +6307,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $DiaryAttachmentsTable diaryAttachments = $DiaryAttachmentsTable(
     this,
   );
+  late final $AiDailyReviewsTable aiDailyReviews = $AiDailyReviewsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5522,6 +6322,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     diaryEntries,
     diaryTags,
     diaryAttachments,
+    aiDailyReviews,
   ];
 }
 
@@ -8821,6 +9622,374 @@ typedef $$DiaryAttachmentsTableProcessedTableManager =
       DiaryAttachmentRow,
       PrefetchHooks Function({bool diaryId})
     >;
+typedef $$AiDailyReviewsTableCreateCompanionBuilder =
+    AiDailyReviewsCompanion Function({
+      required String id,
+      required String localDate,
+      required String content,
+      required String provider,
+      required String model,
+      required String contextTypes,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      required DateTime createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+typedef $$AiDailyReviewsTableUpdateCompanionBuilder =
+    AiDailyReviewsCompanion Function({
+      Value<String> id,
+      Value<String> localDate,
+      Value<String> content,
+      Value<String> provider,
+      Value<String> model,
+      Value<String> contextTypes,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      Value<DateTime> createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+
+class $$AiDailyReviewsTableFilterComposer
+    extends Composer<_$AppDatabase, $AiDailyReviewsTable> {
+  $$AiDailyReviewsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get localDate => $composableBuilder(
+    column: $table.localDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime?, DateTime, int> get deletedAt =>
+      $composableBuilder(
+        column: $table.deletedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+}
+
+class $$AiDailyReviewsTableOrderingComposer
+    extends Composer<_$AppDatabase, $AiDailyReviewsTable> {
+  $$AiDailyReviewsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get localDate => $composableBuilder(
+    column: $table.localDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AiDailyReviewsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AiDailyReviewsTable> {
+  $$AiDailyReviewsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get localDate =>
+      $composableBuilder(column: $table.localDate, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumn<String> get model =>
+      $composableBuilder(column: $table.model, builder: (column) => column);
+
+  GeneratedColumn<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get requestId =>
+      $composableBuilder(column: $table.requestId, builder: (column) => column);
+
+  GeneratedColumn<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime?, int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+}
+
+class $$AiDailyReviewsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AiDailyReviewsTable,
+          AiDailyReviewRow,
+          $$AiDailyReviewsTableFilterComposer,
+          $$AiDailyReviewsTableOrderingComposer,
+          $$AiDailyReviewsTableAnnotationComposer,
+          $$AiDailyReviewsTableCreateCompanionBuilder,
+          $$AiDailyReviewsTableUpdateCompanionBuilder,
+          (
+            AiDailyReviewRow,
+            BaseReferences<
+              _$AppDatabase,
+              $AiDailyReviewsTable,
+              AiDailyReviewRow
+            >,
+          ),
+          AiDailyReviewRow,
+          PrefetchHooks Function()
+        > {
+  $$AiDailyReviewsTableTableManager(
+    _$AppDatabase db,
+    $AiDailyReviewsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AiDailyReviewsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AiDailyReviewsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AiDailyReviewsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> localDate = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String> provider = const Value.absent(),
+                Value<String> model = const Value.absent(),
+                Value<String> contextTypes = const Value.absent(),
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiDailyReviewsCompanion(
+                id: id,
+                localDate: localDate,
+                content: content,
+                provider: provider,
+                model: model,
+                contextTypes: contextTypes,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String localDate,
+                required String content,
+                required String provider,
+                required String model,
+                required String contextTypes,
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                required DateTime createdAt,
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiDailyReviewsCompanion.insert(
+                id: id,
+                localDate: localDate,
+                content: content,
+                provider: provider,
+                model: model,
+                contextTypes: contextTypes,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AiDailyReviewsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AiDailyReviewsTable,
+      AiDailyReviewRow,
+      $$AiDailyReviewsTableFilterComposer,
+      $$AiDailyReviewsTableOrderingComposer,
+      $$AiDailyReviewsTableAnnotationComposer,
+      $$AiDailyReviewsTableCreateCompanionBuilder,
+      $$AiDailyReviewsTableUpdateCompanionBuilder,
+      (
+        AiDailyReviewRow,
+        BaseReferences<_$AppDatabase, $AiDailyReviewsTable, AiDailyReviewRow>,
+      ),
+      AiDailyReviewRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -8843,4 +10012,6 @@ class $AppDatabaseManager {
       $$DiaryTagsTableTableManager(_db, _db.diaryTags);
   $$DiaryAttachmentsTableTableManager get diaryAttachments =>
       $$DiaryAttachmentsTableTableManager(_db, _db.diaryAttachments);
+  $$AiDailyReviewsTableTableManager get aiDailyReviews =>
+      $$AiDailyReviewsTableTableManager(_db, _db.aiDailyReviews);
 }

@@ -69,8 +69,10 @@ void main() {
     final updated = await actionRepository
         .watchByDate(CalendarDate(2026, 7, 29))
         .first;
+    final loaded = await actionRepository.findByDate(CalendarDate(2026, 7, 29));
     expect(updated.single.status, ActionStatus.partial);
     expect(updated.single.version, 2);
+    expect(loaded.single.status, ActionStatus.partial);
 
     await actionRepository.softDelete(id, now.add(const Duration(minutes: 1)));
     final visible = await actionRepository

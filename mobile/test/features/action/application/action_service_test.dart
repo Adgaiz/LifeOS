@@ -52,6 +52,13 @@ final class _MemoryActionRepository implements ActionRepository {
   Future<void> add(DailyAction action) async => items.add(action);
 
   @override
+  Future<List<DailyAction>> findByDate(CalendarDate date) async {
+    return items
+        .where((action) => action.localDate == date)
+        .toList(growable: false);
+  }
+
+  @override
   Future<void> softDelete(String id, DateTime deletedAt) async {
     items.removeWhere((action) => action.id == id);
   }

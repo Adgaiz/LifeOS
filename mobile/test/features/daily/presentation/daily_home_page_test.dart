@@ -35,7 +35,8 @@ void main() {
 
     await tester.drag(find.byType(ListView), const Offset(0, -500));
     await tester.pump(const Duration(milliseconds: 500));
-    expect(find.text('今天不用完美，先完成一个最小行动。'), findsOneWidget);
+    expect(find.text('AI 当日复盘'), findsOneWidget);
+    expect(find.text('一起回顾今天'), findsOneWidget);
   });
 }
 
@@ -61,6 +62,9 @@ final class _EmptyActionRepository implements ActionRepository {
 
   @override
   Future<void> add(DailyAction action) async {}
+
+  @override
+  Future<List<DailyAction>> findByDate(CalendarDate date) async => const [];
 
   @override
   Future<void> softDelete(String id, DateTime deletedAt) async {}

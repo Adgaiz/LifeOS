@@ -57,7 +57,9 @@ final class DailyHomePage extends ConsumerWidget {
               const SizedBox(height: LifeOsSpacing.lg),
               ActionSection(date: date),
               const SizedBox(height: LifeOsSpacing.lg),
-              const _CompanionCard(),
+              _CompanionCard(
+                onStartReview: () => context.push('/ai/daily-review'),
+              ),
             ],
           ),
         ),
@@ -316,7 +318,9 @@ final class _MetricChip extends StatelessWidget {
 }
 
 final class _CompanionCard extends StatelessWidget {
-  const _CompanionCard();
+  const _CompanionCard({required this.onStartReview});
+
+  final VoidCallback onStartReview;
 
   @override
   Widget build(BuildContext context) {
@@ -328,11 +332,29 @@ final class _CompanionCard extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(LifeOsSpacing.lg),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Icon(Icons.eco_outlined, color: colorScheme.primary),
-            const SizedBox(width: LifeOsSpacing.md),
-            const Expanded(child: Text('今天不用完美，先完成一个最小行动。')),
+            Row(
+              children: [
+                Icon(Icons.auto_awesome_outlined, color: colorScheme.primary),
+                const SizedBox(width: LifeOsSpacing.md),
+                Expanded(
+                  child: Text(
+                    'AI 当日复盘',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: LifeOsSpacing.sm),
+            const Text('不是评价今天，而是温柔地看见今天。'),
+            const SizedBox(height: LifeOsSpacing.md),
+            FilledButton.tonalIcon(
+              onPressed: onStartReview,
+              icon: const Icon(Icons.chat_bubble_outline_rounded),
+              label: const Text('一起回顾今天'),
+            ),
           ],
         ),
       ),

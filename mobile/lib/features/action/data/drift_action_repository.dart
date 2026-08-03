@@ -10,6 +10,21 @@ final class DriftActionRepository implements ActionRepository {
   final db.AppDatabase _database;
 
   @override
+  Future<List<DailyAction>> findByDate(CalendarDate date) async {
+    final query = _database.select(_database.dailyActions)
+      ..where(
+        (table) =>
+            table.localDate.equals(date.toIso8601String()) &
+            table.deletedAt.isNull(),
+      )
+      ..orderBy([
+        (table) => OrderingTerm.asc(table.position),
+        (table) => OrderingTerm.asc(table.createdAt),
+      ]);
+    return (await query.get()).map(_toDomain).toList(growable: false);
+  }
+
+  @override
   Stream<List<DailyAction>> watchByDate(CalendarDate date) {
     final query = _database.select(_database.dailyActions)
       ..where(

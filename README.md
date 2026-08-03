@@ -6,7 +6,7 @@ LifeOS 是一个离线优先的个人 AI 成长管理系统。它不监督用户
 
 ## 当前阶段
 
-项目已进入 **Stage 3：AI Companion MVP**。移动端已提供 Daily 本地每日闭环、Vision 人生愿景、90 天 Goal、支持 Markdown 和私有图片附件的 Diary，以及可安全配置 OpenAI、Gemini、Claude、DeepSeek 的统一 AI Service 基础层。Coach、Friend、Analyst 场景将按模块继续实现。
+项目已进入 **Stage 3：AI Companion MVP**。移动端已提供 Daily 本地每日闭环、Vision 人生愿景、90 天 Goal、支持 Markdown 和私有图片附件的 Diary、可安全配置 OpenAI、Gemini、Claude、DeepSeek 的统一 AI Service 基础层，以及采用显式数据授权的 AI 当日复盘。Friend、多轮对话和历史趋势分析将按模块继续实现。
 
 ## 技术基线
 
