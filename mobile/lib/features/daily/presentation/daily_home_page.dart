@@ -57,10 +57,58 @@ final class DailyHomePage extends ConsumerWidget {
               const SizedBox(height: LifeOsSpacing.lg),
               ActionSection(date: date),
               const SizedBox(height: LifeOsSpacing.lg),
+              _GrowthTrendCard(onOpen: () => context.push('/analytics')),
+              const SizedBox(height: LifeOsSpacing.lg),
               _CompanionCard(
                 onStartReview: () => context.push('/ai/daily-review'),
                 onStartFriend: () => context.push('/ai/friend'),
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final class _GrowthTrendCard extends StatelessWidget {
+  const _GrowthTrendCard({required this.onOpen});
+
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return Card(
+      child: InkWell(
+        onTap: onOpen,
+        borderRadius: BorderRadius.circular(LifeOsRadii.card),
+        child: Padding(
+          padding: const EdgeInsets.all(LifeOsSpacing.lg),
+          child: Row(
+            children: [
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  color: colors.primaryContainer,
+                  borderRadius: BorderRadius.circular(LifeOsRadii.control),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(LifeOsSpacing.md),
+                  child: Icon(Icons.insights_outlined),
+                ),
+              ),
+              const SizedBox(width: LifeOsSpacing.md),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('成长趋势'),
+                    SizedBox(height: LifeOsSpacing.xs),
+                    Text('看见睡眠、状态与行动的变化'),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right_rounded),
             ],
           ),
         ),

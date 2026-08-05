@@ -36,6 +36,7 @@ void main() {
     await tester.drag(find.byType(ListView), const Offset(0, -500));
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('AI 当日复盘'), findsOneWidget);
+    expect(find.text('成长趋势'), findsOneWidget);
     expect(find.text('一起回顾今天'), findsOneWidget);
     expect(find.text('聊聊此刻'), findsOneWidget);
   });
