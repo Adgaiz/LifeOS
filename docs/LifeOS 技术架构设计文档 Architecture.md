@@ -369,6 +369,7 @@ server/
 | AiMessage | id, conversationId, role, content, modelInfo | 不保存密钥；模型信息用于可追溯 |
 | AiInsight | id, userId, type, periodStart, periodEnd, content, evidenceRefs | AI 洞察必须记录依据范围 |
 | AiDailyReview | id, localDate, content, provider, model, contextTypes, promptVersion | Phase 1 本地当日复盘；每次生成不可变并记录授权依据 |
+| AiFriendExchange | id, userMessage, assistantMessage, safetyLevel, modelInfo | Phase 1 单轮陪伴；危机内容本地降级，用户可选择不保存 |
 | SyncChange | id, entityType, entityId, operation, version, syncStatus | 客户端同步队列或服务端变更日志 |
 
 字段将在各模块详细设计阶段确认；当前表格不是最终数据库 DDL。

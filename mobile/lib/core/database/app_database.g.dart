@@ -6293,6 +6293,811 @@ class AiDailyReviewsCompanion extends UpdateCompanion<AiDailyReviewRow> {
   }
 }
 
+class $AiFriendExchangesTable extends AiFriendExchanges
+    with TableInfo<$AiFriendExchangesTable, AiFriendExchangeRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AiFriendExchangesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 36,
+      maxTextLength: 36,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _userMessageMeta = const VerificationMeta(
+    'userMessage',
+  );
+  @override
+  late final GeneratedColumn<String> userMessage = GeneratedColumn<String>(
+    'user_message',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 2000,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _assistantMessageMeta = const VerificationMeta(
+    'assistantMessage',
+  );
+  @override
+  late final GeneratedColumn<String> assistantMessage = GeneratedColumn<String>(
+    'assistant_message',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 10000,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _providerMeta = const VerificationMeta(
+    'provider',
+  );
+  @override
+  late final GeneratedColumn<String> provider = GeneratedColumn<String>(
+    'provider',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 32),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
+    'model',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 120),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _safetyLevelMeta = const VerificationMeta(
+    'safetyLevel',
+  );
+  @override
+  late final GeneratedColumn<String> safetyLevel = GeneratedColumn<String>(
+    'safety_level',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 16,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _promptVersionMeta = const VerificationMeta(
+    'promptVersion',
+  );
+  @override
+  late final GeneratedColumn<int> promptVersion = GeneratedColumn<int>(
+    'prompt_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _requestIdMeta = const VerificationMeta(
+    'requestId',
+  );
+  @override
+  late final GeneratedColumn<String> requestId = GeneratedColumn<String>(
+    'request_id',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 200),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _inputTokensMeta = const VerificationMeta(
+    'inputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> inputTokens = GeneratedColumn<int>(
+    'input_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _outputTokensMeta = const VerificationMeta(
+    'outputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> outputTokens = GeneratedColumn<int>(
+    'output_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AiFriendExchangesTable.$convertercreatedAt);
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime?, int> deletedAt =
+      GeneratedColumn<int>(
+        'deleted_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      ).withConverter<DateTime?>($AiFriendExchangesTable.$converterdeletedAtn);
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    userMessage,
+    assistantMessage,
+    provider,
+    model,
+    safetyLevel,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ai_friend_exchanges';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AiFriendExchangeRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('user_message')) {
+      context.handle(
+        _userMessageMeta,
+        userMessage.isAcceptableOrUnknown(
+          data['user_message']!,
+          _userMessageMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_userMessageMeta);
+    }
+    if (data.containsKey('assistant_message')) {
+      context.handle(
+        _assistantMessageMeta,
+        assistantMessage.isAcceptableOrUnknown(
+          data['assistant_message']!,
+          _assistantMessageMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_assistantMessageMeta);
+    }
+    if (data.containsKey('provider')) {
+      context.handle(
+        _providerMeta,
+        provider.isAcceptableOrUnknown(data['provider']!, _providerMeta),
+      );
+    }
+    if (data.containsKey('model')) {
+      context.handle(
+        _modelMeta,
+        model.isAcceptableOrUnknown(data['model']!, _modelMeta),
+      );
+    }
+    if (data.containsKey('safety_level')) {
+      context.handle(
+        _safetyLevelMeta,
+        safetyLevel.isAcceptableOrUnknown(
+          data['safety_level']!,
+          _safetyLevelMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_safetyLevelMeta);
+    }
+    if (data.containsKey('prompt_version')) {
+      context.handle(
+        _promptVersionMeta,
+        promptVersion.isAcceptableOrUnknown(
+          data['prompt_version']!,
+          _promptVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('request_id')) {
+      context.handle(
+        _requestIdMeta,
+        requestId.isAcceptableOrUnknown(data['request_id']!, _requestIdMeta),
+      );
+    }
+    if (data.containsKey('input_tokens')) {
+      context.handle(
+        _inputTokensMeta,
+        inputTokens.isAcceptableOrUnknown(
+          data['input_tokens']!,
+          _inputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('output_tokens')) {
+      context.handle(
+        _outputTokensMeta,
+        outputTokens.isAcceptableOrUnknown(
+          data['output_tokens']!,
+          _outputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AiFriendExchangeRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AiFriendExchangeRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      userMessage: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}user_message'],
+      )!,
+      assistantMessage: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}assistant_message'],
+      )!,
+      provider: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provider'],
+      ),
+      model: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model'],
+      ),
+      safetyLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}safety_level'],
+      )!,
+      promptVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}prompt_version'],
+      )!,
+      requestId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}request_id'],
+      ),
+      inputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}input_tokens'],
+      ),
+      outputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}output_tokens'],
+      ),
+      createdAt: $AiFriendExchangesTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      deletedAt: $AiFriendExchangesTable.$converterdeletedAtn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}deleted_at'],
+        ),
+      ),
+    );
+  }
+
+  @override
+  $AiFriendExchangesTable createAlias(String alias) {
+    return $AiFriendExchangesTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime, int> $converterdeletedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime?, int?> $converterdeletedAtn =
+      NullAwareTypeConverter.wrap($converterdeletedAt);
+}
+
+class AiFriendExchangeRow extends DataClass
+    implements Insertable<AiFriendExchangeRow> {
+  final String id;
+  final String userMessage;
+  final String assistantMessage;
+  final String? provider;
+  final String? model;
+  final String safetyLevel;
+  final int promptVersion;
+  final String? requestId;
+  final int? inputTokens;
+  final int? outputTokens;
+  final DateTime createdAt;
+  final int version;
+  final DateTime? deletedAt;
+  const AiFriendExchangeRow({
+    required this.id,
+    required this.userMessage,
+    required this.assistantMessage,
+    this.provider,
+    this.model,
+    required this.safetyLevel,
+    required this.promptVersion,
+    this.requestId,
+    this.inputTokens,
+    this.outputTokens,
+    required this.createdAt,
+    required this.version,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['user_message'] = Variable<String>(userMessage);
+    map['assistant_message'] = Variable<String>(assistantMessage);
+    if (!nullToAbsent || provider != null) {
+      map['provider'] = Variable<String>(provider);
+    }
+    if (!nullToAbsent || model != null) {
+      map['model'] = Variable<String>(model);
+    }
+    map['safety_level'] = Variable<String>(safetyLevel);
+    map['prompt_version'] = Variable<int>(promptVersion);
+    if (!nullToAbsent || requestId != null) {
+      map['request_id'] = Variable<String>(requestId);
+    }
+    if (!nullToAbsent || inputTokens != null) {
+      map['input_tokens'] = Variable<int>(inputTokens);
+    }
+    if (!nullToAbsent || outputTokens != null) {
+      map['output_tokens'] = Variable<int>(outputTokens);
+    }
+    {
+      map['created_at'] = Variable<int>(
+        $AiFriendExchangesTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    map['version'] = Variable<int>(version);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(
+        $AiFriendExchangesTable.$converterdeletedAtn.toSql(deletedAt),
+      );
+    }
+    return map;
+  }
+
+  AiFriendExchangesCompanion toCompanion(bool nullToAbsent) {
+    return AiFriendExchangesCompanion(
+      id: Value(id),
+      userMessage: Value(userMessage),
+      assistantMessage: Value(assistantMessage),
+      provider: provider == null && nullToAbsent
+          ? const Value.absent()
+          : Value(provider),
+      model: model == null && nullToAbsent
+          ? const Value.absent()
+          : Value(model),
+      safetyLevel: Value(safetyLevel),
+      promptVersion: Value(promptVersion),
+      requestId: requestId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(requestId),
+      inputTokens: inputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inputTokens),
+      outputTokens: outputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(outputTokens),
+      createdAt: Value(createdAt),
+      version: Value(version),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory AiFriendExchangeRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AiFriendExchangeRow(
+      id: serializer.fromJson<String>(json['id']),
+      userMessage: serializer.fromJson<String>(json['userMessage']),
+      assistantMessage: serializer.fromJson<String>(json['assistantMessage']),
+      provider: serializer.fromJson<String?>(json['provider']),
+      model: serializer.fromJson<String?>(json['model']),
+      safetyLevel: serializer.fromJson<String>(json['safetyLevel']),
+      promptVersion: serializer.fromJson<int>(json['promptVersion']),
+      requestId: serializer.fromJson<String?>(json['requestId']),
+      inputTokens: serializer.fromJson<int?>(json['inputTokens']),
+      outputTokens: serializer.fromJson<int?>(json['outputTokens']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      version: serializer.fromJson<int>(json['version']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'userMessage': serializer.toJson<String>(userMessage),
+      'assistantMessage': serializer.toJson<String>(assistantMessage),
+      'provider': serializer.toJson<String?>(provider),
+      'model': serializer.toJson<String?>(model),
+      'safetyLevel': serializer.toJson<String>(safetyLevel),
+      'promptVersion': serializer.toJson<int>(promptVersion),
+      'requestId': serializer.toJson<String?>(requestId),
+      'inputTokens': serializer.toJson<int?>(inputTokens),
+      'outputTokens': serializer.toJson<int?>(outputTokens),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'version': serializer.toJson<int>(version),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+    };
+  }
+
+  AiFriendExchangeRow copyWith({
+    String? id,
+    String? userMessage,
+    String? assistantMessage,
+    Value<String?> provider = const Value.absent(),
+    Value<String?> model = const Value.absent(),
+    String? safetyLevel,
+    int? promptVersion,
+    Value<String?> requestId = const Value.absent(),
+    Value<int?> inputTokens = const Value.absent(),
+    Value<int?> outputTokens = const Value.absent(),
+    DateTime? createdAt,
+    int? version,
+    Value<DateTime?> deletedAt = const Value.absent(),
+  }) => AiFriendExchangeRow(
+    id: id ?? this.id,
+    userMessage: userMessage ?? this.userMessage,
+    assistantMessage: assistantMessage ?? this.assistantMessage,
+    provider: provider.present ? provider.value : this.provider,
+    model: model.present ? model.value : this.model,
+    safetyLevel: safetyLevel ?? this.safetyLevel,
+    promptVersion: promptVersion ?? this.promptVersion,
+    requestId: requestId.present ? requestId.value : this.requestId,
+    inputTokens: inputTokens.present ? inputTokens.value : this.inputTokens,
+    outputTokens: outputTokens.present ? outputTokens.value : this.outputTokens,
+    createdAt: createdAt ?? this.createdAt,
+    version: version ?? this.version,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  AiFriendExchangeRow copyWithCompanion(AiFriendExchangesCompanion data) {
+    return AiFriendExchangeRow(
+      id: data.id.present ? data.id.value : this.id,
+      userMessage: data.userMessage.present
+          ? data.userMessage.value
+          : this.userMessage,
+      assistantMessage: data.assistantMessage.present
+          ? data.assistantMessage.value
+          : this.assistantMessage,
+      provider: data.provider.present ? data.provider.value : this.provider,
+      model: data.model.present ? data.model.value : this.model,
+      safetyLevel: data.safetyLevel.present
+          ? data.safetyLevel.value
+          : this.safetyLevel,
+      promptVersion: data.promptVersion.present
+          ? data.promptVersion.value
+          : this.promptVersion,
+      requestId: data.requestId.present ? data.requestId.value : this.requestId,
+      inputTokens: data.inputTokens.present
+          ? data.inputTokens.value
+          : this.inputTokens,
+      outputTokens: data.outputTokens.present
+          ? data.outputTokens.value
+          : this.outputTokens,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      version: data.version.present ? data.version.value : this.version,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiFriendExchangeRow(')
+          ..write('id: $id, ')
+          ..write('userMessage: $userMessage, ')
+          ..write('assistantMessage: $assistantMessage, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('safetyLevel: $safetyLevel, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    userMessage,
+    assistantMessage,
+    provider,
+    model,
+    safetyLevel,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AiFriendExchangeRow &&
+          other.id == this.id &&
+          other.userMessage == this.userMessage &&
+          other.assistantMessage == this.assistantMessage &&
+          other.provider == this.provider &&
+          other.model == this.model &&
+          other.safetyLevel == this.safetyLevel &&
+          other.promptVersion == this.promptVersion &&
+          other.requestId == this.requestId &&
+          other.inputTokens == this.inputTokens &&
+          other.outputTokens == this.outputTokens &&
+          other.createdAt == this.createdAt &&
+          other.version == this.version &&
+          other.deletedAt == this.deletedAt);
+}
+
+class AiFriendExchangesCompanion extends UpdateCompanion<AiFriendExchangeRow> {
+  final Value<String> id;
+  final Value<String> userMessage;
+  final Value<String> assistantMessage;
+  final Value<String?> provider;
+  final Value<String?> model;
+  final Value<String> safetyLevel;
+  final Value<int> promptVersion;
+  final Value<String?> requestId;
+  final Value<int?> inputTokens;
+  final Value<int?> outputTokens;
+  final Value<DateTime> createdAt;
+  final Value<int> version;
+  final Value<DateTime?> deletedAt;
+  final Value<int> rowid;
+  const AiFriendExchangesCompanion({
+    this.id = const Value.absent(),
+    this.userMessage = const Value.absent(),
+    this.assistantMessage = const Value.absent(),
+    this.provider = const Value.absent(),
+    this.model = const Value.absent(),
+    this.safetyLevel = const Value.absent(),
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AiFriendExchangesCompanion.insert({
+    required String id,
+    required String userMessage,
+    required String assistantMessage,
+    this.provider = const Value.absent(),
+    this.model = const Value.absent(),
+    required String safetyLevel,
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    required DateTime createdAt,
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       userMessage = Value(userMessage),
+       assistantMessage = Value(assistantMessage),
+       safetyLevel = Value(safetyLevel),
+       createdAt = Value(createdAt);
+  static Insertable<AiFriendExchangeRow> custom({
+    Expression<String>? id,
+    Expression<String>? userMessage,
+    Expression<String>? assistantMessage,
+    Expression<String>? provider,
+    Expression<String>? model,
+    Expression<String>? safetyLevel,
+    Expression<int>? promptVersion,
+    Expression<String>? requestId,
+    Expression<int>? inputTokens,
+    Expression<int>? outputTokens,
+    Expression<int>? createdAt,
+    Expression<int>? version,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (userMessage != null) 'user_message': userMessage,
+      if (assistantMessage != null) 'assistant_message': assistantMessage,
+      if (provider != null) 'provider': provider,
+      if (model != null) 'model': model,
+      if (safetyLevel != null) 'safety_level': safetyLevel,
+      if (promptVersion != null) 'prompt_version': promptVersion,
+      if (requestId != null) 'request_id': requestId,
+      if (inputTokens != null) 'input_tokens': inputTokens,
+      if (outputTokens != null) 'output_tokens': outputTokens,
+      if (createdAt != null) 'created_at': createdAt,
+      if (version != null) 'version': version,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AiFriendExchangesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? userMessage,
+    Value<String>? assistantMessage,
+    Value<String?>? provider,
+    Value<String?>? model,
+    Value<String>? safetyLevel,
+    Value<int>? promptVersion,
+    Value<String?>? requestId,
+    Value<int?>? inputTokens,
+    Value<int?>? outputTokens,
+    Value<DateTime>? createdAt,
+    Value<int>? version,
+    Value<DateTime?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return AiFriendExchangesCompanion(
+      id: id ?? this.id,
+      userMessage: userMessage ?? this.userMessage,
+      assistantMessage: assistantMessage ?? this.assistantMessage,
+      provider: provider ?? this.provider,
+      model: model ?? this.model,
+      safetyLevel: safetyLevel ?? this.safetyLevel,
+      promptVersion: promptVersion ?? this.promptVersion,
+      requestId: requestId ?? this.requestId,
+      inputTokens: inputTokens ?? this.inputTokens,
+      outputTokens: outputTokens ?? this.outputTokens,
+      createdAt: createdAt ?? this.createdAt,
+      version: version ?? this.version,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (userMessage.present) {
+      map['user_message'] = Variable<String>(userMessage.value);
+    }
+    if (assistantMessage.present) {
+      map['assistant_message'] = Variable<String>(assistantMessage.value);
+    }
+    if (provider.present) {
+      map['provider'] = Variable<String>(provider.value);
+    }
+    if (model.present) {
+      map['model'] = Variable<String>(model.value);
+    }
+    if (safetyLevel.present) {
+      map['safety_level'] = Variable<String>(safetyLevel.value);
+    }
+    if (promptVersion.present) {
+      map['prompt_version'] = Variable<int>(promptVersion.value);
+    }
+    if (requestId.present) {
+      map['request_id'] = Variable<String>(requestId.value);
+    }
+    if (inputTokens.present) {
+      map['input_tokens'] = Variable<int>(inputTokens.value);
+    }
+    if (outputTokens.present) {
+      map['output_tokens'] = Variable<int>(outputTokens.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $AiFriendExchangesTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(
+        $AiFriendExchangesTable.$converterdeletedAtn.toSql(deletedAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiFriendExchangesCompanion(')
+          ..write('id: $id, ')
+          ..write('userMessage: $userMessage, ')
+          ..write('assistantMessage: $assistantMessage, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('safetyLevel: $safetyLevel, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -6308,6 +7113,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     this,
   );
   late final $AiDailyReviewsTable aiDailyReviews = $AiDailyReviewsTable(this);
+  late final $AiFriendExchangesTable aiFriendExchanges =
+      $AiFriendExchangesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -6323,6 +7130,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     diaryTags,
     diaryAttachments,
     aiDailyReviews,
+    aiFriendExchanges,
   ];
 }
 
@@ -9990,6 +10798,385 @@ typedef $$AiDailyReviewsTableProcessedTableManager =
       AiDailyReviewRow,
       PrefetchHooks Function()
     >;
+typedef $$AiFriendExchangesTableCreateCompanionBuilder =
+    AiFriendExchangesCompanion Function({
+      required String id,
+      required String userMessage,
+      required String assistantMessage,
+      Value<String?> provider,
+      Value<String?> model,
+      required String safetyLevel,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      required DateTime createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+typedef $$AiFriendExchangesTableUpdateCompanionBuilder =
+    AiFriendExchangesCompanion Function({
+      Value<String> id,
+      Value<String> userMessage,
+      Value<String> assistantMessage,
+      Value<String?> provider,
+      Value<String?> model,
+      Value<String> safetyLevel,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      Value<DateTime> createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+
+class $$AiFriendExchangesTableFilterComposer
+    extends Composer<_$AppDatabase, $AiFriendExchangesTable> {
+  $$AiFriendExchangesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get userMessage => $composableBuilder(
+    column: $table.userMessage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get assistantMessage => $composableBuilder(
+    column: $table.assistantMessage,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get safetyLevel => $composableBuilder(
+    column: $table.safetyLevel,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime?, DateTime, int> get deletedAt =>
+      $composableBuilder(
+        column: $table.deletedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+}
+
+class $$AiFriendExchangesTableOrderingComposer
+    extends Composer<_$AppDatabase, $AiFriendExchangesTable> {
+  $$AiFriendExchangesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get userMessage => $composableBuilder(
+    column: $table.userMessage,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get assistantMessage => $composableBuilder(
+    column: $table.assistantMessage,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get safetyLevel => $composableBuilder(
+    column: $table.safetyLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AiFriendExchangesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AiFriendExchangesTable> {
+  $$AiFriendExchangesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get userMessage => $composableBuilder(
+    column: $table.userMessage,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get assistantMessage => $composableBuilder(
+    column: $table.assistantMessage,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumn<String> get model =>
+      $composableBuilder(column: $table.model, builder: (column) => column);
+
+  GeneratedColumn<String> get safetyLevel => $composableBuilder(
+    column: $table.safetyLevel,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get requestId =>
+      $composableBuilder(column: $table.requestId, builder: (column) => column);
+
+  GeneratedColumn<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime?, int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+}
+
+class $$AiFriendExchangesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AiFriendExchangesTable,
+          AiFriendExchangeRow,
+          $$AiFriendExchangesTableFilterComposer,
+          $$AiFriendExchangesTableOrderingComposer,
+          $$AiFriendExchangesTableAnnotationComposer,
+          $$AiFriendExchangesTableCreateCompanionBuilder,
+          $$AiFriendExchangesTableUpdateCompanionBuilder,
+          (
+            AiFriendExchangeRow,
+            BaseReferences<
+              _$AppDatabase,
+              $AiFriendExchangesTable,
+              AiFriendExchangeRow
+            >,
+          ),
+          AiFriendExchangeRow,
+          PrefetchHooks Function()
+        > {
+  $$AiFriendExchangesTableTableManager(
+    _$AppDatabase db,
+    $AiFriendExchangesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AiFriendExchangesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AiFriendExchangesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AiFriendExchangesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> userMessage = const Value.absent(),
+                Value<String> assistantMessage = const Value.absent(),
+                Value<String?> provider = const Value.absent(),
+                Value<String?> model = const Value.absent(),
+                Value<String> safetyLevel = const Value.absent(),
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiFriendExchangesCompanion(
+                id: id,
+                userMessage: userMessage,
+                assistantMessage: assistantMessage,
+                provider: provider,
+                model: model,
+                safetyLevel: safetyLevel,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String userMessage,
+                required String assistantMessage,
+                Value<String?> provider = const Value.absent(),
+                Value<String?> model = const Value.absent(),
+                required String safetyLevel,
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                required DateTime createdAt,
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiFriendExchangesCompanion.insert(
+                id: id,
+                userMessage: userMessage,
+                assistantMessage: assistantMessage,
+                provider: provider,
+                model: model,
+                safetyLevel: safetyLevel,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AiFriendExchangesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AiFriendExchangesTable,
+      AiFriendExchangeRow,
+      $$AiFriendExchangesTableFilterComposer,
+      $$AiFriendExchangesTableOrderingComposer,
+      $$AiFriendExchangesTableAnnotationComposer,
+      $$AiFriendExchangesTableCreateCompanionBuilder,
+      $$AiFriendExchangesTableUpdateCompanionBuilder,
+      (
+        AiFriendExchangeRow,
+        BaseReferences<
+          _$AppDatabase,
+          $AiFriendExchangesTable,
+          AiFriendExchangeRow
+        >,
+      ),
+      AiFriendExchangeRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -10014,4 +11201,6 @@ class $AppDatabaseManager {
       $$DiaryAttachmentsTableTableManager(_db, _db.diaryAttachments);
   $$AiDailyReviewsTableTableManager get aiDailyReviews =>
       $$AiDailyReviewsTableTableManager(_db, _db.aiDailyReviews);
+  $$AiFriendExchangesTableTableManager get aiFriendExchanges =>
+      $$AiFriendExchangesTableTableManager(_db, _db.aiFriendExchanges);
 }

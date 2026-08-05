@@ -59,6 +59,7 @@ final class DailyHomePage extends ConsumerWidget {
               const SizedBox(height: LifeOsSpacing.lg),
               _CompanionCard(
                 onStartReview: () => context.push('/ai/daily-review'),
+                onStartFriend: () => context.push('/ai/friend'),
               ),
             ],
           ),
@@ -318,9 +319,13 @@ final class _MetricChip extends StatelessWidget {
 }
 
 final class _CompanionCard extends StatelessWidget {
-  const _CompanionCard({required this.onStartReview});
+  const _CompanionCard({
+    required this.onStartReview,
+    required this.onStartFriend,
+  });
 
   final VoidCallback onStartReview;
+  final VoidCallback onStartFriend;
 
   @override
   Widget build(BuildContext context) {
@@ -354,6 +359,12 @@ final class _CompanionCard extends StatelessWidget {
               onPressed: onStartReview,
               icon: const Icon(Icons.chat_bubble_outline_rounded),
               label: const Text('一起回顾今天'),
+            ),
+            const SizedBox(height: LifeOsSpacing.sm),
+            OutlinedButton.icon(
+              onPressed: onStartFriend,
+              icon: const Icon(Icons.favorite_border_rounded),
+              label: const Text('聊聊此刻'),
             ),
           ],
         ),

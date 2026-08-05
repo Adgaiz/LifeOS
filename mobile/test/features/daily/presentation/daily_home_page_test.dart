@@ -37,6 +37,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('AI 当日复盘'), findsOneWidget);
     expect(find.text('一起回顾今天'), findsOneWidget);
+    expect(find.text('聊聊此刻'), findsOneWidget);
   });
 }
 
