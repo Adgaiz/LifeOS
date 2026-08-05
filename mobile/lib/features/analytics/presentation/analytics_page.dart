@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lifeos/core/ui/design_tokens.dart';
 import 'package:lifeos/features/analytics/application/analytics_providers.dart';
 import 'package:lifeos/features/analytics/domain/analytics.dart';
@@ -95,6 +96,12 @@ final class _AnalyticsContent extends StatelessWidget {
         ],
         _SummaryGrid(report: report),
         const SizedBox(height: LifeOsSpacing.xl),
+        _AiAnalystCard(
+          period: report.period,
+          onOpen: () =>
+              context.push('/ai/periodic-report?period=${report.period.name}'),
+        ),
+        const SizedBox(height: LifeOsSpacing.xl),
         _TrendCard(
           title: '睡眠趋势',
           summary: report.averageSleepMinutes == null
@@ -179,6 +186,54 @@ final class _AnalyticsContent extends StatelessWidget {
     if (change == null) return '最新 $latestLabel';
     final sign = change > 0 ? '+' : '';
     return '最新 $latestLabel · 周期变化 $sign${(change / 1000).toStringAsFixed(1)} kg';
+  }
+}
+
+final class _AiAnalystCard extends StatelessWidget {
+  const _AiAnalystCard({required this.period, required this.onOpen});
+
+  final AnalyticsPeriod period;
+  final VoidCallback onOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: colors.secondaryContainer.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(LifeOsRadii.card),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(LifeOsSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.auto_awesome_outlined, color: colors.primary),
+                const SizedBox(width: LifeOsSpacing.md),
+                Expanded(
+                  child: Text(
+                    'AI 周期解读',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: LifeOsSpacing.sm),
+            const Text('由你选择授权哪些聚合指标，不发送逐日原始记录。'),
+            const SizedBox(height: LifeOsSpacing.md),
+            FilledButton.tonalIcon(
+              onPressed: onOpen,
+              icon: const Icon(Icons.insights_outlined),
+              label: Text(
+                period == AnalyticsPeriod.sevenDays ? '生成 AI 周报' : '生成 AI 月报',
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

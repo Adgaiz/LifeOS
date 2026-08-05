@@ -4,6 +4,8 @@ import 'package:lifeos/app/startup/foundation_page.dart';
 import 'package:lifeos/features/ai/presentation/ai_settings_page.dart';
 import 'package:lifeos/features/ai_companion/daily_review/presentation/daily_review_page.dart';
 import 'package:lifeos/features/ai_companion/friend/presentation/ai_friend_page.dart';
+import 'package:lifeos/features/ai_companion/periodic_report/presentation/periodic_report_page.dart';
+import 'package:lifeos/features/analytics/domain/analytics.dart';
 import 'package:lifeos/features/analytics/presentation/analytics_page.dart';
 import 'package:lifeos/features/daily/presentation/daily_home_page.dart';
 import 'package:lifeos/features/diary/presentation/diary_page.dart';
@@ -41,6 +43,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/ai/friend',
         builder: (context, state) => const AiFriendPage(),
+      ),
+      GoRoute(
+        path: '/ai/periodic-report',
+        builder: (context, state) {
+          final periodName = state.uri.queryParameters['period'];
+          final period = AnalyticsPeriod.values.firstWhere(
+            (value) => value.name == periodName,
+            orElse: () => AnalyticsPeriod.sevenDays,
+          );
+          return PeriodicReportPage(initialPeriod: period);
+        },
       ),
     ],
   );

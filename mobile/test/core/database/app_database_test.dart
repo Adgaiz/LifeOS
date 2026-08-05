@@ -13,7 +13,7 @@ void main() {
     await database.close();
   });
 
-  test('creates schema version eight and stores metadata', () async {
+  test('creates schema version nine and stores metadata', () async {
     final updatedAt = DateTime.utc(2026, 7, 29);
     await database
         .into(database.appMetadata)
@@ -27,7 +27,7 @@ void main() {
 
     final record = await database.select(database.appMetadata).getSingle();
 
-    expect(database.schemaVersion, 8);
+    expect(database.schemaVersion, 9);
     expect(record.metadataKey, 'schema_baseline');
     expect(record.metadataValue, '1');
     expect(record.updatedAt, updatedAt);
@@ -61,7 +61,8 @@ void main() {
                'daily_records', 'daily_actions', 'visions',
                'goals', 'goal_key_results', 'diary_entries',
                'diary_tags', 'diary_attachments', 'ai_daily_reviews',
-               'ai_friend_exchanges', 'timeline_events'
+               'ai_friend_exchanges', 'timeline_events',
+               'ai_periodic_reports'
              )
              ORDER BY name''',
     ).get();
@@ -70,6 +71,7 @@ void main() {
     expect(businessTables.map((row) => row.read<String>('name')), [
       'ai_daily_reviews',
       'ai_friend_exchanges',
+      'ai_periodic_reports',
       'daily_actions',
       'daily_records',
       'diary_attachments',
@@ -287,5 +289,40 @@ void main() {
       'timeline_events_occurred_index',
       'timeline_events_system_source_unique',
     ]);
+  });
+
+  test('migrates schema version eight by adding AI periodic reports', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (sqlite) {
+          sqlite
+            ..execute('''
+              CREATE TABLE app_metadata (
+                metadata_key TEXT NOT NULL PRIMARY KEY,
+                metadata_value TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+              )
+            ''')
+            ..execute('PRAGMA user_version = 8');
+        },
+      ),
+    );
+
+    final table = await database
+        .customSelect(
+          "SELECT name FROM sqlite_master WHERE type = 'table' "
+          "AND name = 'ai_periodic_reports'",
+        )
+        .getSingle();
+    final index = await database
+        .customSelect(
+          "SELECT name FROM sqlite_master WHERE type = 'index' "
+          "AND name = 'ai_periodic_reports_period_index'",
+        )
+        .getSingle();
+
+    expect(table.read<String>('name'), 'ai_periodic_reports');
+    expect(index.read<String>('name'), 'ai_periodic_reports_period_index');
   });
 }

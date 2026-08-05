@@ -7791,6 +7791,911 @@ class TimelineEventsCompanion extends UpdateCompanion<TimelineEventRow> {
   }
 }
 
+class $AiPeriodicReportsTable extends AiPeriodicReports
+    with TableInfo<$AiPeriodicReportsTable, AiPeriodicReportRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AiPeriodicReportsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 36,
+      maxTextLength: 36,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _periodTypeMeta = const VerificationMeta(
+    'periodType',
+  );
+  @override
+  late final GeneratedColumn<String> periodType = GeneratedColumn<String>(
+    'period_type',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 24,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _startDateMeta = const VerificationMeta(
+    'startDate',
+  );
+  @override
+  late final GeneratedColumn<String> startDate = GeneratedColumn<String>(
+    'start_date',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 10,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _endDateMeta = const VerificationMeta(
+    'endDate',
+  );
+  @override
+  late final GeneratedColumn<String> endDate = GeneratedColumn<String>(
+    'end_date',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 10,
+      maxTextLength: 10,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+    'content',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 20000,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _providerMeta = const VerificationMeta(
+    'provider',
+  );
+  @override
+  late final GeneratedColumn<String> provider = GeneratedColumn<String>(
+    'provider',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 32,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modelMeta = const VerificationMeta('model');
+  @override
+  late final GeneratedColumn<String> model = GeneratedColumn<String>(
+    'model',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 120,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contextTypesMeta = const VerificationMeta(
+    'contextTypes',
+  );
+  @override
+  late final GeneratedColumn<String> contextTypes = GeneratedColumn<String>(
+    'context_types',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(
+      minTextLength: 1,
+      maxTextLength: 200,
+    ),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _promptVersionMeta = const VerificationMeta(
+    'promptVersion',
+  );
+  @override
+  late final GeneratedColumn<int> promptVersion = GeneratedColumn<int>(
+    'prompt_version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _requestIdMeta = const VerificationMeta(
+    'requestId',
+  );
+  @override
+  late final GeneratedColumn<String> requestId = GeneratedColumn<String>(
+    'request_id',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 200),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _inputTokensMeta = const VerificationMeta(
+    'inputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> inputTokens = GeneratedColumn<int>(
+    'input_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _outputTokensMeta = const VerificationMeta(
+    'outputTokens',
+  );
+  @override
+  late final GeneratedColumn<int> outputTokens = GeneratedColumn<int>(
+    'output_tokens',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime, int> createdAt =
+      GeneratedColumn<int>(
+        'created_at',
+        aliasedName,
+        false,
+        type: DriftSqlType.int,
+        requiredDuringInsert: true,
+      ).withConverter<DateTime>($AiPeriodicReportsTable.$convertercreatedAt);
+  static const VerificationMeta _versionMeta = const VerificationMeta(
+    'version',
+  );
+  @override
+  late final GeneratedColumn<int> version = GeneratedColumn<int>(
+    'version',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<DateTime?, int> deletedAt =
+      GeneratedColumn<int>(
+        'deleted_at',
+        aliasedName,
+        true,
+        type: DriftSqlType.int,
+        requiredDuringInsert: false,
+      ).withConverter<DateTime?>($AiPeriodicReportsTable.$converterdeletedAtn);
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    periodType,
+    startDate,
+    endDate,
+    content,
+    provider,
+    model,
+    contextTypes,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ai_periodic_reports';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AiPeriodicReportRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('period_type')) {
+      context.handle(
+        _periodTypeMeta,
+        periodType.isAcceptableOrUnknown(data['period_type']!, _periodTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_periodTypeMeta);
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(
+        _startDateMeta,
+        startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('end_date')) {
+      context.handle(
+        _endDateMeta,
+        endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_endDateMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('provider')) {
+      context.handle(
+        _providerMeta,
+        provider.isAcceptableOrUnknown(data['provider']!, _providerMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_providerMeta);
+    }
+    if (data.containsKey('model')) {
+      context.handle(
+        _modelMeta,
+        model.isAcceptableOrUnknown(data['model']!, _modelMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_modelMeta);
+    }
+    if (data.containsKey('context_types')) {
+      context.handle(
+        _contextTypesMeta,
+        contextTypes.isAcceptableOrUnknown(
+          data['context_types']!,
+          _contextTypesMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_contextTypesMeta);
+    }
+    if (data.containsKey('prompt_version')) {
+      context.handle(
+        _promptVersionMeta,
+        promptVersion.isAcceptableOrUnknown(
+          data['prompt_version']!,
+          _promptVersionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('request_id')) {
+      context.handle(
+        _requestIdMeta,
+        requestId.isAcceptableOrUnknown(data['request_id']!, _requestIdMeta),
+      );
+    }
+    if (data.containsKey('input_tokens')) {
+      context.handle(
+        _inputTokensMeta,
+        inputTokens.isAcceptableOrUnknown(
+          data['input_tokens']!,
+          _inputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('output_tokens')) {
+      context.handle(
+        _outputTokensMeta,
+        outputTokens.isAcceptableOrUnknown(
+          data['output_tokens']!,
+          _outputTokensMeta,
+        ),
+      );
+    }
+    if (data.containsKey('version')) {
+      context.handle(
+        _versionMeta,
+        version.isAcceptableOrUnknown(data['version']!, _versionMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AiPeriodicReportRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AiPeriodicReportRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      periodType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}period_type'],
+      )!,
+      startDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}start_date'],
+      )!,
+      endDate: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}end_date'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
+      provider: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provider'],
+      )!,
+      model: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}model'],
+      )!,
+      contextTypes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}context_types'],
+      )!,
+      promptVersion: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}prompt_version'],
+      )!,
+      requestId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}request_id'],
+      ),
+      inputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}input_tokens'],
+      ),
+      outputTokens: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}output_tokens'],
+      ),
+      createdAt: $AiPeriodicReportsTable.$convertercreatedAt.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}created_at'],
+        )!,
+      ),
+      version: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}version'],
+      )!,
+      deletedAt: $AiPeriodicReportsTable.$converterdeletedAtn.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.int,
+          data['${effectivePrefix}deleted_at'],
+        ),
+      ),
+    );
+  }
+
+  @override
+  $AiPeriodicReportsTable createAlias(String alias) {
+    return $AiPeriodicReportsTable(attachedDatabase, alias);
+  }
+
+  static TypeConverter<DateTime, int> $convertercreatedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime, int> $converterdeletedAt =
+      const UtcDateTimeConverter();
+  static TypeConverter<DateTime?, int?> $converterdeletedAtn =
+      NullAwareTypeConverter.wrap($converterdeletedAt);
+}
+
+class AiPeriodicReportRow extends DataClass
+    implements Insertable<AiPeriodicReportRow> {
+  final String id;
+  final String periodType;
+  final String startDate;
+  final String endDate;
+  final String content;
+  final String provider;
+  final String model;
+  final String contextTypes;
+  final int promptVersion;
+  final String? requestId;
+  final int? inputTokens;
+  final int? outputTokens;
+  final DateTime createdAt;
+  final int version;
+  final DateTime? deletedAt;
+  const AiPeriodicReportRow({
+    required this.id,
+    required this.periodType,
+    required this.startDate,
+    required this.endDate,
+    required this.content,
+    required this.provider,
+    required this.model,
+    required this.contextTypes,
+    required this.promptVersion,
+    this.requestId,
+    this.inputTokens,
+    this.outputTokens,
+    required this.createdAt,
+    required this.version,
+    this.deletedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['period_type'] = Variable<String>(periodType);
+    map['start_date'] = Variable<String>(startDate);
+    map['end_date'] = Variable<String>(endDate);
+    map['content'] = Variable<String>(content);
+    map['provider'] = Variable<String>(provider);
+    map['model'] = Variable<String>(model);
+    map['context_types'] = Variable<String>(contextTypes);
+    map['prompt_version'] = Variable<int>(promptVersion);
+    if (!nullToAbsent || requestId != null) {
+      map['request_id'] = Variable<String>(requestId);
+    }
+    if (!nullToAbsent || inputTokens != null) {
+      map['input_tokens'] = Variable<int>(inputTokens);
+    }
+    if (!nullToAbsent || outputTokens != null) {
+      map['output_tokens'] = Variable<int>(outputTokens);
+    }
+    {
+      map['created_at'] = Variable<int>(
+        $AiPeriodicReportsTable.$convertercreatedAt.toSql(createdAt),
+      );
+    }
+    map['version'] = Variable<int>(version);
+    if (!nullToAbsent || deletedAt != null) {
+      map['deleted_at'] = Variable<int>(
+        $AiPeriodicReportsTable.$converterdeletedAtn.toSql(deletedAt),
+      );
+    }
+    return map;
+  }
+
+  AiPeriodicReportsCompanion toCompanion(bool nullToAbsent) {
+    return AiPeriodicReportsCompanion(
+      id: Value(id),
+      periodType: Value(periodType),
+      startDate: Value(startDate),
+      endDate: Value(endDate),
+      content: Value(content),
+      provider: Value(provider),
+      model: Value(model),
+      contextTypes: Value(contextTypes),
+      promptVersion: Value(promptVersion),
+      requestId: requestId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(requestId),
+      inputTokens: inputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(inputTokens),
+      outputTokens: outputTokens == null && nullToAbsent
+          ? const Value.absent()
+          : Value(outputTokens),
+      createdAt: Value(createdAt),
+      version: Value(version),
+      deletedAt: deletedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(deletedAt),
+    );
+  }
+
+  factory AiPeriodicReportRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AiPeriodicReportRow(
+      id: serializer.fromJson<String>(json['id']),
+      periodType: serializer.fromJson<String>(json['periodType']),
+      startDate: serializer.fromJson<String>(json['startDate']),
+      endDate: serializer.fromJson<String>(json['endDate']),
+      content: serializer.fromJson<String>(json['content']),
+      provider: serializer.fromJson<String>(json['provider']),
+      model: serializer.fromJson<String>(json['model']),
+      contextTypes: serializer.fromJson<String>(json['contextTypes']),
+      promptVersion: serializer.fromJson<int>(json['promptVersion']),
+      requestId: serializer.fromJson<String?>(json['requestId']),
+      inputTokens: serializer.fromJson<int?>(json['inputTokens']),
+      outputTokens: serializer.fromJson<int?>(json['outputTokens']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      version: serializer.fromJson<int>(json['version']),
+      deletedAt: serializer.fromJson<DateTime?>(json['deletedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'periodType': serializer.toJson<String>(periodType),
+      'startDate': serializer.toJson<String>(startDate),
+      'endDate': serializer.toJson<String>(endDate),
+      'content': serializer.toJson<String>(content),
+      'provider': serializer.toJson<String>(provider),
+      'model': serializer.toJson<String>(model),
+      'contextTypes': serializer.toJson<String>(contextTypes),
+      'promptVersion': serializer.toJson<int>(promptVersion),
+      'requestId': serializer.toJson<String?>(requestId),
+      'inputTokens': serializer.toJson<int?>(inputTokens),
+      'outputTokens': serializer.toJson<int?>(outputTokens),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'version': serializer.toJson<int>(version),
+      'deletedAt': serializer.toJson<DateTime?>(deletedAt),
+    };
+  }
+
+  AiPeriodicReportRow copyWith({
+    String? id,
+    String? periodType,
+    String? startDate,
+    String? endDate,
+    String? content,
+    String? provider,
+    String? model,
+    String? contextTypes,
+    int? promptVersion,
+    Value<String?> requestId = const Value.absent(),
+    Value<int?> inputTokens = const Value.absent(),
+    Value<int?> outputTokens = const Value.absent(),
+    DateTime? createdAt,
+    int? version,
+    Value<DateTime?> deletedAt = const Value.absent(),
+  }) => AiPeriodicReportRow(
+    id: id ?? this.id,
+    periodType: periodType ?? this.periodType,
+    startDate: startDate ?? this.startDate,
+    endDate: endDate ?? this.endDate,
+    content: content ?? this.content,
+    provider: provider ?? this.provider,
+    model: model ?? this.model,
+    contextTypes: contextTypes ?? this.contextTypes,
+    promptVersion: promptVersion ?? this.promptVersion,
+    requestId: requestId.present ? requestId.value : this.requestId,
+    inputTokens: inputTokens.present ? inputTokens.value : this.inputTokens,
+    outputTokens: outputTokens.present ? outputTokens.value : this.outputTokens,
+    createdAt: createdAt ?? this.createdAt,
+    version: version ?? this.version,
+    deletedAt: deletedAt.present ? deletedAt.value : this.deletedAt,
+  );
+  AiPeriodicReportRow copyWithCompanion(AiPeriodicReportsCompanion data) {
+    return AiPeriodicReportRow(
+      id: data.id.present ? data.id.value : this.id,
+      periodType: data.periodType.present
+          ? data.periodType.value
+          : this.periodType,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      content: data.content.present ? data.content.value : this.content,
+      provider: data.provider.present ? data.provider.value : this.provider,
+      model: data.model.present ? data.model.value : this.model,
+      contextTypes: data.contextTypes.present
+          ? data.contextTypes.value
+          : this.contextTypes,
+      promptVersion: data.promptVersion.present
+          ? data.promptVersion.value
+          : this.promptVersion,
+      requestId: data.requestId.present ? data.requestId.value : this.requestId,
+      inputTokens: data.inputTokens.present
+          ? data.inputTokens.value
+          : this.inputTokens,
+      outputTokens: data.outputTokens.present
+          ? data.outputTokens.value
+          : this.outputTokens,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      version: data.version.present ? data.version.value : this.version,
+      deletedAt: data.deletedAt.present ? data.deletedAt.value : this.deletedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiPeriodicReportRow(')
+          ..write('id: $id, ')
+          ..write('periodType: $periodType, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('content: $content, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('contextTypes: $contextTypes, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    periodType,
+    startDate,
+    endDate,
+    content,
+    provider,
+    model,
+    contextTypes,
+    promptVersion,
+    requestId,
+    inputTokens,
+    outputTokens,
+    createdAt,
+    version,
+    deletedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AiPeriodicReportRow &&
+          other.id == this.id &&
+          other.periodType == this.periodType &&
+          other.startDate == this.startDate &&
+          other.endDate == this.endDate &&
+          other.content == this.content &&
+          other.provider == this.provider &&
+          other.model == this.model &&
+          other.contextTypes == this.contextTypes &&
+          other.promptVersion == this.promptVersion &&
+          other.requestId == this.requestId &&
+          other.inputTokens == this.inputTokens &&
+          other.outputTokens == this.outputTokens &&
+          other.createdAt == this.createdAt &&
+          other.version == this.version &&
+          other.deletedAt == this.deletedAt);
+}
+
+class AiPeriodicReportsCompanion extends UpdateCompanion<AiPeriodicReportRow> {
+  final Value<String> id;
+  final Value<String> periodType;
+  final Value<String> startDate;
+  final Value<String> endDate;
+  final Value<String> content;
+  final Value<String> provider;
+  final Value<String> model;
+  final Value<String> contextTypes;
+  final Value<int> promptVersion;
+  final Value<String?> requestId;
+  final Value<int?> inputTokens;
+  final Value<int?> outputTokens;
+  final Value<DateTime> createdAt;
+  final Value<int> version;
+  final Value<DateTime?> deletedAt;
+  final Value<int> rowid;
+  const AiPeriodicReportsCompanion({
+    this.id = const Value.absent(),
+    this.periodType = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.content = const Value.absent(),
+    this.provider = const Value.absent(),
+    this.model = const Value.absent(),
+    this.contextTypes = const Value.absent(),
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AiPeriodicReportsCompanion.insert({
+    required String id,
+    required String periodType,
+    required String startDate,
+    required String endDate,
+    required String content,
+    required String provider,
+    required String model,
+    required String contextTypes,
+    this.promptVersion = const Value.absent(),
+    this.requestId = const Value.absent(),
+    this.inputTokens = const Value.absent(),
+    this.outputTokens = const Value.absent(),
+    required DateTime createdAt,
+    this.version = const Value.absent(),
+    this.deletedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       periodType = Value(periodType),
+       startDate = Value(startDate),
+       endDate = Value(endDate),
+       content = Value(content),
+       provider = Value(provider),
+       model = Value(model),
+       contextTypes = Value(contextTypes),
+       createdAt = Value(createdAt);
+  static Insertable<AiPeriodicReportRow> custom({
+    Expression<String>? id,
+    Expression<String>? periodType,
+    Expression<String>? startDate,
+    Expression<String>? endDate,
+    Expression<String>? content,
+    Expression<String>? provider,
+    Expression<String>? model,
+    Expression<String>? contextTypes,
+    Expression<int>? promptVersion,
+    Expression<String>? requestId,
+    Expression<int>? inputTokens,
+    Expression<int>? outputTokens,
+    Expression<int>? createdAt,
+    Expression<int>? version,
+    Expression<int>? deletedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (periodType != null) 'period_type': periodType,
+      if (startDate != null) 'start_date': startDate,
+      if (endDate != null) 'end_date': endDate,
+      if (content != null) 'content': content,
+      if (provider != null) 'provider': provider,
+      if (model != null) 'model': model,
+      if (contextTypes != null) 'context_types': contextTypes,
+      if (promptVersion != null) 'prompt_version': promptVersion,
+      if (requestId != null) 'request_id': requestId,
+      if (inputTokens != null) 'input_tokens': inputTokens,
+      if (outputTokens != null) 'output_tokens': outputTokens,
+      if (createdAt != null) 'created_at': createdAt,
+      if (version != null) 'version': version,
+      if (deletedAt != null) 'deleted_at': deletedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AiPeriodicReportsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? periodType,
+    Value<String>? startDate,
+    Value<String>? endDate,
+    Value<String>? content,
+    Value<String>? provider,
+    Value<String>? model,
+    Value<String>? contextTypes,
+    Value<int>? promptVersion,
+    Value<String?>? requestId,
+    Value<int?>? inputTokens,
+    Value<int?>? outputTokens,
+    Value<DateTime>? createdAt,
+    Value<int>? version,
+    Value<DateTime?>? deletedAt,
+    Value<int>? rowid,
+  }) {
+    return AiPeriodicReportsCompanion(
+      id: id ?? this.id,
+      periodType: periodType ?? this.periodType,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      content: content ?? this.content,
+      provider: provider ?? this.provider,
+      model: model ?? this.model,
+      contextTypes: contextTypes ?? this.contextTypes,
+      promptVersion: promptVersion ?? this.promptVersion,
+      requestId: requestId ?? this.requestId,
+      inputTokens: inputTokens ?? this.inputTokens,
+      outputTokens: outputTokens ?? this.outputTokens,
+      createdAt: createdAt ?? this.createdAt,
+      version: version ?? this.version,
+      deletedAt: deletedAt ?? this.deletedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (periodType.present) {
+      map['period_type'] = Variable<String>(periodType.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<String>(startDate.value);
+    }
+    if (endDate.present) {
+      map['end_date'] = Variable<String>(endDate.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (provider.present) {
+      map['provider'] = Variable<String>(provider.value);
+    }
+    if (model.present) {
+      map['model'] = Variable<String>(model.value);
+    }
+    if (contextTypes.present) {
+      map['context_types'] = Variable<String>(contextTypes.value);
+    }
+    if (promptVersion.present) {
+      map['prompt_version'] = Variable<int>(promptVersion.value);
+    }
+    if (requestId.present) {
+      map['request_id'] = Variable<String>(requestId.value);
+    }
+    if (inputTokens.present) {
+      map['input_tokens'] = Variable<int>(inputTokens.value);
+    }
+    if (outputTokens.present) {
+      map['output_tokens'] = Variable<int>(outputTokens.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<int>(
+        $AiPeriodicReportsTable.$convertercreatedAt.toSql(createdAt.value),
+      );
+    }
+    if (version.present) {
+      map['version'] = Variable<int>(version.value);
+    }
+    if (deletedAt.present) {
+      map['deleted_at'] = Variable<int>(
+        $AiPeriodicReportsTable.$converterdeletedAtn.toSql(deletedAt.value),
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AiPeriodicReportsCompanion(')
+          ..write('id: $id, ')
+          ..write('periodType: $periodType, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('content: $content, ')
+          ..write('provider: $provider, ')
+          ..write('model: $model, ')
+          ..write('contextTypes: $contextTypes, ')
+          ..write('promptVersion: $promptVersion, ')
+          ..write('requestId: $requestId, ')
+          ..write('inputTokens: $inputTokens, ')
+          ..write('outputTokens: $outputTokens, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('version: $version, ')
+          ..write('deletedAt: $deletedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -7809,6 +8714,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $AiFriendExchangesTable aiFriendExchanges =
       $AiFriendExchangesTable(this);
   late final $TimelineEventsTable timelineEvents = $TimelineEventsTable(this);
+  late final $AiPeriodicReportsTable aiPeriodicReports =
+      $AiPeriodicReportsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -7826,6 +8733,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     aiDailyReviews,
     aiFriendExchanges,
     timelineEvents,
+    aiPeriodicReports,
   ];
 }
 
@@ -12201,6 +13109,421 @@ typedef $$TimelineEventsTableProcessedTableManager =
       TimelineEventRow,
       PrefetchHooks Function()
     >;
+typedef $$AiPeriodicReportsTableCreateCompanionBuilder =
+    AiPeriodicReportsCompanion Function({
+      required String id,
+      required String periodType,
+      required String startDate,
+      required String endDate,
+      required String content,
+      required String provider,
+      required String model,
+      required String contextTypes,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      required DateTime createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+typedef $$AiPeriodicReportsTableUpdateCompanionBuilder =
+    AiPeriodicReportsCompanion Function({
+      Value<String> id,
+      Value<String> periodType,
+      Value<String> startDate,
+      Value<String> endDate,
+      Value<String> content,
+      Value<String> provider,
+      Value<String> model,
+      Value<String> contextTypes,
+      Value<int> promptVersion,
+      Value<String?> requestId,
+      Value<int?> inputTokens,
+      Value<int?> outputTokens,
+      Value<DateTime> createdAt,
+      Value<int> version,
+      Value<DateTime?> deletedAt,
+      Value<int> rowid,
+    });
+
+class $$AiPeriodicReportsTableFilterComposer
+    extends Composer<_$AppDatabase, $AiPeriodicReportsTable> {
+  $$AiPeriodicReportsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get periodType => $composableBuilder(
+    column: $table.periodType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get endDate => $composableBuilder(
+    column: $table.endDate,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime, DateTime, int> get createdAt =>
+      $composableBuilder(
+        column: $table.createdAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+
+  ColumnFilters<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<DateTime?, DateTime, int> get deletedAt =>
+      $composableBuilder(
+        column: $table.deletedAt,
+        builder: (column) => ColumnWithTypeConverterFilters(column),
+      );
+}
+
+class $$AiPeriodicReportsTableOrderingComposer
+    extends Composer<_$AppDatabase, $AiPeriodicReportsTable> {
+  $$AiPeriodicReportsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get periodType => $composableBuilder(
+    column: $table.periodType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get startDate => $composableBuilder(
+    column: $table.startDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get endDate => $composableBuilder(
+    column: $table.endDate,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provider => $composableBuilder(
+    column: $table.provider,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get model => $composableBuilder(
+    column: $table.model,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get requestId => $composableBuilder(
+    column: $table.requestId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+    column: $table.createdAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get version => $composableBuilder(
+    column: $table.version,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get deletedAt => $composableBuilder(
+    column: $table.deletedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$AiPeriodicReportsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AiPeriodicReportsTable> {
+  $$AiPeriodicReportsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get periodType => $composableBuilder(
+    column: $table.periodType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<String> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get provider =>
+      $composableBuilder(column: $table.provider, builder: (column) => column);
+
+  GeneratedColumn<String> get model =>
+      $composableBuilder(column: $table.model, builder: (column) => column);
+
+  GeneratedColumn<String> get contextTypes => $composableBuilder(
+    column: $table.contextTypes,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get promptVersion => $composableBuilder(
+    column: $table.promptVersion,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get requestId =>
+      $composableBuilder(column: $table.requestId, builder: (column) => column);
+
+  GeneratedColumn<int> get inputTokens => $composableBuilder(
+    column: $table.inputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get outputTokens => $composableBuilder(
+    column: $table.outputTokens,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<DateTime, int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get version =>
+      $composableBuilder(column: $table.version, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<DateTime?, int> get deletedAt =>
+      $composableBuilder(column: $table.deletedAt, builder: (column) => column);
+}
+
+class $$AiPeriodicReportsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AiPeriodicReportsTable,
+          AiPeriodicReportRow,
+          $$AiPeriodicReportsTableFilterComposer,
+          $$AiPeriodicReportsTableOrderingComposer,
+          $$AiPeriodicReportsTableAnnotationComposer,
+          $$AiPeriodicReportsTableCreateCompanionBuilder,
+          $$AiPeriodicReportsTableUpdateCompanionBuilder,
+          (
+            AiPeriodicReportRow,
+            BaseReferences<
+              _$AppDatabase,
+              $AiPeriodicReportsTable,
+              AiPeriodicReportRow
+            >,
+          ),
+          AiPeriodicReportRow,
+          PrefetchHooks Function()
+        > {
+  $$AiPeriodicReportsTableTableManager(
+    _$AppDatabase db,
+    $AiPeriodicReportsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AiPeriodicReportsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AiPeriodicReportsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AiPeriodicReportsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> periodType = const Value.absent(),
+                Value<String> startDate = const Value.absent(),
+                Value<String> endDate = const Value.absent(),
+                Value<String> content = const Value.absent(),
+                Value<String> provider = const Value.absent(),
+                Value<String> model = const Value.absent(),
+                Value<String> contextTypes = const Value.absent(),
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiPeriodicReportsCompanion(
+                id: id,
+                periodType: periodType,
+                startDate: startDate,
+                endDate: endDate,
+                content: content,
+                provider: provider,
+                model: model,
+                contextTypes: contextTypes,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String periodType,
+                required String startDate,
+                required String endDate,
+                required String content,
+                required String provider,
+                required String model,
+                required String contextTypes,
+                Value<int> promptVersion = const Value.absent(),
+                Value<String?> requestId = const Value.absent(),
+                Value<int?> inputTokens = const Value.absent(),
+                Value<int?> outputTokens = const Value.absent(),
+                required DateTime createdAt,
+                Value<int> version = const Value.absent(),
+                Value<DateTime?> deletedAt = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AiPeriodicReportsCompanion.insert(
+                id: id,
+                periodType: periodType,
+                startDate: startDate,
+                endDate: endDate,
+                content: content,
+                provider: provider,
+                model: model,
+                contextTypes: contextTypes,
+                promptVersion: promptVersion,
+                requestId: requestId,
+                inputTokens: inputTokens,
+                outputTokens: outputTokens,
+                createdAt: createdAt,
+                version: version,
+                deletedAt: deletedAt,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$AiPeriodicReportsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AiPeriodicReportsTable,
+      AiPeriodicReportRow,
+      $$AiPeriodicReportsTableFilterComposer,
+      $$AiPeriodicReportsTableOrderingComposer,
+      $$AiPeriodicReportsTableAnnotationComposer,
+      $$AiPeriodicReportsTableCreateCompanionBuilder,
+      $$AiPeriodicReportsTableUpdateCompanionBuilder,
+      (
+        AiPeriodicReportRow,
+        BaseReferences<
+          _$AppDatabase,
+          $AiPeriodicReportsTable,
+          AiPeriodicReportRow
+        >,
+      ),
+      AiPeriodicReportRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -12229,4 +13552,6 @@ class $AppDatabaseManager {
       $$AiFriendExchangesTableTableManager(_db, _db.aiFriendExchanges);
   $$TimelineEventsTableTableManager get timelineEvents =>
       $$TimelineEventsTableTableManager(_db, _db.timelineEvents);
+  $$AiPeriodicReportsTableTableManager get aiPeriodicReports =>
+      $$AiPeriodicReportsTableTableManager(_db, _db.aiPeriodicReports);
 }

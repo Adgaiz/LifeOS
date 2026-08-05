@@ -370,6 +370,7 @@ server/
 | AiInsight | id, userId, type, periodStart, periodEnd, content, evidenceRefs | AI 洞察必须记录依据范围 |
 | AiDailyReview | id, localDate, content, provider, model, contextTypes, promptVersion | Phase 1 本地当日复盘；每次生成不可变并记录授权依据 |
 | AiFriendExchange | id, userMessage, assistantMessage, safetyLevel, modelInfo | Phase 1 单轮陪伴；危机内容本地降级，用户可选择不保存 |
+| AiPeriodicReport | id, period, startDate, endDate, content, contextTypes, modelInfo | 周报/月报不可变结果；只保存本次授权的聚合指标类型 |
 | SyncChange | id, entityType, entityId, operation, version, syncStatus | 客户端同步队列或服务端变更日志 |
 
 字段将在各模块详细设计阶段确认；当前表格不是最终数据库 DDL。

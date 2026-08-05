@@ -64,11 +64,14 @@ void main() {
     expect(find.text('100%'), findsOneWidget);
     expect(find.text('平均 8.0 小时'), findsOneWidget);
     expect(find.text('最新 70.0 kg'), findsOneWidget);
+    expect(find.text('AI 周期解读'), findsOneWidget);
+    expect(find.text('生成 AI 周报'), findsOneWidget);
 
     await tester.tap(find.text('近 30 天'));
     await tester.pumpAndSettle();
 
     expect(find.text('1/30'), findsOneWidget);
+    expect(find.text('生成 AI 月报'), findsOneWidget);
     expect(repository.calls, 2);
   });
 }

@@ -354,6 +354,43 @@ class TimelineEvents extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
+@DataClassName('AiPeriodicReportRow')
+class AiPeriodicReports extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get periodType => text().withLength(min: 1, max: 24)();
+
+  TextColumn get startDate => text().withLength(min: 10, max: 10)();
+
+  TextColumn get endDate => text().withLength(min: 10, max: 10)();
+
+  TextColumn get content => text().withLength(min: 1, max: 20000)();
+
+  TextColumn get provider => text().withLength(min: 1, max: 32)();
+
+  TextColumn get model => text().withLength(min: 1, max: 120)();
+
+  TextColumn get contextTypes => text().withLength(min: 1, max: 200)();
+
+  IntColumn get promptVersion => integer().withDefault(const Constant(1))();
+
+  TextColumn get requestId => text().withLength(max: 200).nullable()();
+
+  IntColumn get inputTokens => integer().nullable()();
+
+  IntColumn get outputTokens => integer().nullable()();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
 @DriftDatabase(
   tables: [
     AppMetadata,
@@ -368,6 +405,7 @@ class TimelineEvents extends Table {
     AiDailyReviews,
     AiFriendExchanges,
     TimelineEvents,
+    AiPeriodicReports,
   ],
 )
 final class AppDatabase extends _$AppDatabase {
@@ -376,7 +414,7 @@ final class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -386,6 +424,7 @@ final class AppDatabase extends _$AppDatabase {
       await _createAiDailyReviewIndexes();
       await _createAiFriendExchangeIndexes();
       await _createTimelineIndexes();
+      await _createAiPeriodicReportIndexes();
     },
     onUpgrade: (migrator, from, to) async {
       if (from < 2) {
@@ -416,6 +455,10 @@ final class AppDatabase extends _$AppDatabase {
       if (from < 8) {
         await migrator.createTable(timelineEvents);
         await _createTimelineIndexes();
+      }
+      if (from < 9) {
+        await migrator.createTable(aiPeriodicReports);
+        await _createAiPeriodicReportIndexes();
       }
     },
     beforeOpen: (details) async {
@@ -456,6 +499,14 @@ final class AppDatabase extends _$AppDatabase {
       'CREATE UNIQUE INDEX IF NOT EXISTS timeline_events_system_source_unique '
       'ON timeline_events(source_type, source_id, event_type) '
       'WHERE deleted_at IS NULL AND source_id IS NOT NULL',
+    );
+  }
+
+  Future<void> _createAiPeriodicReportIndexes() {
+    return customStatement(
+      'CREATE INDEX IF NOT EXISTS ai_periodic_reports_period_index '
+      'ON ai_periodic_reports(period_type, start_date, end_date, created_at DESC) '
+      'WHERE deleted_at IS NULL',
     );
   }
 }
