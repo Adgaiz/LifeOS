@@ -325,6 +325,35 @@ class AiFriendExchanges extends Table {
   Set<Column<Object>> get primaryKey => {id};
 }
 
+@DataClassName('TimelineEventRow')
+class TimelineEvents extends Table {
+  TextColumn get id => text().withLength(min: 36, max: 36)();
+
+  TextColumn get occurredOn => text().withLength(min: 10, max: 10)();
+
+  TextColumn get eventType => text().withLength(min: 1, max: 24)();
+
+  TextColumn get title => text().withLength(min: 1, max: 80)();
+
+  TextColumn get description => text().withLength(max: 2000).nullable()();
+
+  TextColumn get sourceType => text().withLength(min: 1, max: 24)();
+
+  TextColumn get sourceId => text().withLength(min: 36, max: 36).nullable()();
+
+  IntColumn get createdAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get updatedAt => integer().map(const UtcDateTimeConverter())();
+
+  IntColumn get version => integer().withDefault(const Constant(1))();
+
+  IntColumn get deletedAt =>
+      integer().map(const UtcDateTimeConverter()).nullable()();
+
+  @override
+  Set<Column<Object>> get primaryKey => {id};
+}
+
 @DriftDatabase(
   tables: [
     AppMetadata,
@@ -338,6 +367,7 @@ class AiFriendExchanges extends Table {
     DiaryAttachments,
     AiDailyReviews,
     AiFriendExchanges,
+    TimelineEvents,
   ],
 )
 final class AppDatabase extends _$AppDatabase {
@@ -346,7 +376,7 @@ final class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -355,6 +385,7 @@ final class AppDatabase extends _$AppDatabase {
       await _createDiaryIndexes();
       await _createAiDailyReviewIndexes();
       await _createAiFriendExchangeIndexes();
+      await _createTimelineIndexes();
     },
     onUpgrade: (migrator, from, to) async {
       if (from < 2) {
@@ -382,6 +413,10 @@ final class AppDatabase extends _$AppDatabase {
         await migrator.createTable(aiFriendExchanges);
         await _createAiFriendExchangeIndexes();
       }
+      if (from < 8) {
+        await migrator.createTable(timelineEvents);
+        await _createTimelineIndexes();
+      }
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -408,6 +443,19 @@ final class AppDatabase extends _$AppDatabase {
       'CREATE INDEX IF NOT EXISTS ai_friend_exchanges_created_index '
       'ON ai_friend_exchanges(created_at DESC) '
       'WHERE deleted_at IS NULL',
+    );
+  }
+
+  Future<void> _createTimelineIndexes() async {
+    await customStatement(
+      'CREATE INDEX IF NOT EXISTS timeline_events_occurred_index '
+      'ON timeline_events(occurred_on DESC, created_at DESC) '
+      'WHERE deleted_at IS NULL',
+    );
+    await customStatement(
+      'CREATE UNIQUE INDEX IF NOT EXISTS timeline_events_system_source_unique '
+      'ON timeline_events(source_type, source_id, event_type) '
+      'WHERE deleted_at IS NULL AND source_id IS NOT NULL',
     );
   }
 }

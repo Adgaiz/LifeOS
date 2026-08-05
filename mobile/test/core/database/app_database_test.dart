@@ -13,7 +13,7 @@ void main() {
     await database.close();
   });
 
-  test('creates schema version seven and stores metadata', () async {
+  test('creates schema version eight and stores metadata', () async {
     final updatedAt = DateTime.utc(2026, 7, 29);
     await database
         .into(database.appMetadata)
@@ -27,7 +27,7 @@ void main() {
 
     final record = await database.select(database.appMetadata).getSingle();
 
-    expect(database.schemaVersion, 7);
+    expect(database.schemaVersion, 8);
     expect(record.metadataKey, 'schema_baseline');
     expect(record.metadataValue, '1');
     expect(record.updatedAt, updatedAt);
@@ -61,7 +61,7 @@ void main() {
                'daily_records', 'daily_actions', 'visions',
                'goals', 'goal_key_results', 'diary_entries',
                'diary_tags', 'diary_attachments', 'ai_daily_reviews',
-               'ai_friend_exchanges'
+               'ai_friend_exchanges', 'timeline_events'
              )
              ORDER BY name''',
     ).get();
@@ -77,6 +77,7 @@ void main() {
       'diary_tags',
       'goal_key_results',
       'goals',
+      'timeline_events',
       'visions',
     ]);
   });
@@ -248,5 +249,43 @@ void main() {
 
     expect(table.read<String>('name'), 'ai_friend_exchanges');
     expect(index.read<String>('name'), 'ai_friend_exchanges_created_index');
+  });
+
+  test('migrates schema version seven by adding Timeline indexes', () async {
+    await database.close();
+    database = AppDatabase.forTesting(
+      NativeDatabase.memory(
+        setup: (sqlite) {
+          sqlite
+            ..execute('''
+              CREATE TABLE app_metadata (
+                metadata_key TEXT NOT NULL PRIMARY KEY,
+                metadata_value TEXT NOT NULL,
+                updated_at INTEGER NOT NULL
+              )
+            ''')
+            ..execute('PRAGMA user_version = 7');
+        },
+      ),
+    );
+
+    final table = await database
+        .customSelect(
+          "SELECT name FROM sqlite_master WHERE type = 'table' "
+          "AND name = 'timeline_events'",
+        )
+        .getSingle();
+    final indexes = await database
+        .customSelect(
+          "SELECT name FROM sqlite_master WHERE type = 'index' "
+          "AND name LIKE 'timeline_events_%' ORDER BY name",
+        )
+        .get();
+
+    expect(table.read<String>('name'), 'timeline_events');
+    expect(indexes.map((row) => row.read<String>('name')), [
+      'timeline_events_occurred_index',
+      'timeline_events_system_source_unique',
+    ]);
   });
 }

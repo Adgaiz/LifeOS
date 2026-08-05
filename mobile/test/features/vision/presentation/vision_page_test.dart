@@ -26,6 +26,7 @@ void main() {
     expect(find.text('给未来一个方向'), findsOneWidget);
     expect(find.text('今天'), findsOneWidget);
     expect(find.text('愿景'), findsOneWidget);
+    expect(find.text('足迹'), findsOneWidget);
 
     await tester.tap(find.text('写下第一个愿景'));
     await tester.pumpAndSettle();
