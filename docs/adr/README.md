@@ -14,3 +14,4 @@
 - [ADR-0001：采用离线优先的模块化架构](0001-offline-first-modular-architecture.md)
 - [ADR-0002：Android 首发与应用标识](0002-android-first-application-identity.md)
 - [ADR-0003：MVP 本地数据、图片与备份保护](0003-local-data-image-and-backup-protection.md)
+- [ADR-0004：采用加密 Drift 数据库与用户控制的加密备份](0004-encrypted-database-and-user-controlled-backup.md)

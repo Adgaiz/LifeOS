@@ -3,6 +3,7 @@
 - 状态：Accepted
 - 日期：2026-07-29
 - 决策者：LifeOS 项目
+- 部分被替代：[ADR-0004：采用加密 Drift 数据库与用户控制的加密备份](0004-encrypted-database-and-user-controlled-backup.md)
 - 复审触发：公开发布、引入云备份/账户同步、设备威胁模型变化
 
 ## 背景
