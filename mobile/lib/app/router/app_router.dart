@@ -7,6 +7,7 @@ import 'package:lifeos/features/ai_companion/friend/presentation/ai_friend_page.
 import 'package:lifeos/features/ai_companion/periodic_report/presentation/periodic_report_page.dart';
 import 'package:lifeos/features/analytics/domain/analytics.dart';
 import 'package:lifeos/features/analytics/presentation/analytics_page.dart';
+import 'package:lifeos/features/backup/presentation/backup_page.dart';
 import 'package:lifeos/features/daily/presentation/daily_home_page.dart';
 import 'package:lifeos/features/diary/presentation/diary_page.dart';
 import 'package:lifeos/features/goal/presentation/goal_page.dart';
@@ -35,6 +36,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings/ai',
         builder: (context, state) => const AiSettingsPage(),
+      ),
+      GoRoute(
+        path: '/settings/backup',
+        builder: (context, state) => const BackupPage(),
       ),
       GoRoute(
         path: '/ai/daily-review',

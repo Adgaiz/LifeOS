@@ -37,6 +37,7 @@ final class DailyHomePage extends ConsumerWidget {
               _TodayHeader(
                 date: date,
                 onOpenAiSettings: () => context.push('/settings/ai'),
+                onOpenBackup: () => context.push('/settings/backup'),
               ),
               const SizedBox(height: LifeOsSpacing.xl),
               record.when(
@@ -118,10 +119,15 @@ final class _GrowthTrendCard extends StatelessWidget {
 }
 
 final class _TodayHeader extends StatelessWidget {
-  const _TodayHeader({required this.date, required this.onOpenAiSettings});
+  const _TodayHeader({
+    required this.date,
+    required this.onOpenAiSettings,
+    required this.onOpenBackup,
+  });
 
   final CalendarDate date;
   final VoidCallback onOpenAiSettings;
+  final VoidCallback onOpenBackup;
 
   static const _weekdays = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 
@@ -155,6 +161,11 @@ final class _TodayHeader extends StatelessWidget {
           tooltip: 'AI 服务设置',
           onPressed: onOpenAiSettings,
           icon: const Icon(Icons.auto_awesome_outlined),
+        ),
+        IconButton(
+          tooltip: '数据与备份',
+          onPressed: onOpenBackup,
+          icon: const Icon(Icons.shield_outlined),
         ),
         const SizedBox(width: LifeOsSpacing.xs),
         const _LifeOsMark(),
