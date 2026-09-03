@@ -21,6 +21,8 @@ final class _BackupPageState extends ConsumerState<BackupPage> {
   Future<void> _createBackup() async {
     final password = await _requestNewPassword();
     if (password == null || !mounted) return;
+    await _waitForDialogTeardown();
+    if (!mounted) return;
     setState(() => _operation = '正在创建并验证加密备份…');
     try {
       final summary = await ref
@@ -45,6 +47,8 @@ final class _BackupPageState extends ConsumerState<BackupPage> {
   Future<void> _restoreBackup() async {
     final password = await _requestRestorePassword();
     if (password == null || !mounted) return;
+    await _waitForDialogTeardown();
+    if (!mounted) return;
     setState(() => _operation = '正在解密并检查备份…');
     PreparedRestore? prepared;
     try {
@@ -56,6 +60,7 @@ final class _BackupPageState extends ConsumerState<BackupPage> {
         await ref.read(backupServiceProvider).cancelRestore(prepared);
         return;
       }
+      await _waitForDialogTeardown();
       if (!mounted) return;
       setState(() => _operation = '正在安全替换本机数据…');
       try {
@@ -147,6 +152,7 @@ final class _BackupPageState extends ConsumerState<BackupPage> {
         ),
       ),
     );
+    await _waitForDialogTeardown();
     password.dispose();
     confirmation.dispose();
     return result;
@@ -194,8 +200,13 @@ final class _BackupPageState extends ConsumerState<BackupPage> {
         ),
       ),
     );
+    await _waitForDialogTeardown();
     password.dispose();
     return result;
+  }
+
+  Future<void> _waitForDialogTeardown() async {
+    await WidgetsBinding.instance.endOfFrame;
   }
 
   Future<bool?> _confirmRestore(PreparedRestore prepared) {
