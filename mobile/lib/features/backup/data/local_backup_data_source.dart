@@ -192,7 +192,10 @@ final class LocalBackupDataSource {
     }
   }
 
-  Future<void> commitRestore(PreparedRestore prepared) async {
+  Future<void> commitRestore(
+    PreparedRestore prepared, {
+    bool closeCurrentDatabase = true,
+  }) async {
     final databaseFile = await _paths.databaseFile();
     final documents = await _paths.documentsDirectory();
     final support = await _paths.supportDirectory();
@@ -227,8 +230,18 @@ final class LocalBackupDataSource {
       );
       await _validateDatabase(stagedDatabase, prepared.manifest);
 
-      // No LifeOS query may run between close and provider invalidation.
-      await _database.close();
+      // The app flow invalidates the database provider before reaching this
+      // point. Keep the default close for direct callers and tests, while
+      // allowing the provider-owned connection to be released by Riverpod.
+      if (closeCurrentDatabase) {
+        await _database.close().timeout(
+          const Duration(seconds: 15),
+          onTimeout: () => throw const BackupException(
+            '当前数据库仍有页面正在使用，请返回今天页面后重试',
+            code: BackupErrorCode.busy,
+          ),
+        );
+      }
       for (final suffix in sidecarSuffixes) {
         final sidecar = File('${databaseFile.path}$suffix');
         if (await sidecar.exists()) {

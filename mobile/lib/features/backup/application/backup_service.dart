@@ -4,10 +4,15 @@ import 'package:lifeos/features/backup/domain/backup_file_transfer.dart';
 import 'package:lifeos/features/backup/domain/backup_models.dart';
 
 final class BackupService {
-  BackupService(this._dataSource, this._fileTransfer);
+  BackupService(
+    this._dataSource,
+    this._fileTransfer, {
+    this._beforeRestoreCommit,
+  });
 
   final LocalBackupDataSource _dataSource;
   final BackupFileTransfer _fileTransfer;
+  final Future<void> Function()? _beforeRestoreCommit;
   bool _busy = false;
 
   Future<BackupSummary?> createBackup(String password) {
@@ -53,7 +58,10 @@ final class BackupService {
   }
 
   Future<void> confirmRestore(PreparedRestore prepared) {
-    return _guard(() => _dataSource.commitRestore(prepared));
+    return _guard(() async {
+      await _beforeRestoreCommit?.call();
+      return _dataSource.commitRestore(prepared, closeCurrentDatabase: false);
+    });
   }
 
   Future<void> cancelRestore(PreparedRestore prepared) {

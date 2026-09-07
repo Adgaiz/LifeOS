@@ -31,5 +31,12 @@ final backupServiceProvider = Provider<BackupService>((ref) {
   return BackupService(
     ref.watch(localBackupDataSourceProvider),
     ref.watch(backupFileTransferProvider),
+    beforeRestoreCommit: () async {
+      // Dispose database-backed repositories before replacing the SQLite file.
+      // Let Riverpod process invalidations and close the old connection before
+      // the atomic file switch begins.
+      ref.invalidate(appDatabaseProvider);
+      await Future<void>.delayed(Duration.zero);
+    },
   );
 });
